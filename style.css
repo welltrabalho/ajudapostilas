@@ -179,4 +179,27 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
   .submenu-inner.open > .submenu-inner-toggle::after {
     transform: rotate(90deg);
   }
+
+  .submenu-list li {
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: submenuItem 0.3s forwards ease;
+}
+
+.submenu-list li:nth-child(1) { animation-delay: 0.05s; }
+.submenu-list li:nth-child(2) { animation-delay: 0.10s; }
+.submenu-list li:nth-child(3) { animation-delay: 0.15s; }
+.submenu-list li:nth-child(4) { animation-delay: 0.20s; }
+.submenu-list li:nth-child(5) { animation-delay: 0.25s; }
+.submenu-list li:nth-child(6) { animation-delay: 0.30s; }
+.submenu-list li:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes submenuItem {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
 }
