@@ -24,6 +24,7 @@
   opacity: 0.8;
 }
 
+/* RESPONSIVO LOGO */
 @media (max-width: 768px) {
   .logo-img {
     width: 45px;
@@ -51,7 +52,7 @@ body {
 /* HEADER */
 header {
   width: 100%;
-  background: rgba;
+  background: rgba(0,0,0,0.4);
   backdrop-filter: blur(10px);
   padding: 15px 20px;
   position: fixed;
@@ -167,6 +168,10 @@ nav {
     display: block;
   }
 
+  nav {
+    position: relative;
+  }
+
   .nav-list {
     position: absolute;
     top: 75px;
@@ -185,6 +190,7 @@ nav {
     display: flex;
   }
 
+  /* Submenu mobile */
   .submenu-list {
     position: relative;
     background: #272727;
@@ -291,12 +297,18 @@ hamburger.addEventListener("click", () => {
   navList.classList.toggle("active");
 });
 
-/* Submenu no mobile */
-document.querySelectorAll(".submenu").forEach(sub => {
-  sub.addEventListener("click", function (e) {
+/* Submenu no mobile — CORRIGIDO */
+document.querySelectorAll(".submenu > a").forEach(menuPrincipal => {
+  menuPrincipal.addEventListener("click", function (e) {
     if (window.innerWidth <= 768) {
-      e.preventDefault();
-      this.classList.toggle("open");
+      const submenu = this.parentElement;
+
+      // Se o submenu NÃO está aberto, abre e cancela clique
+      if (!submenu.classList.contains("open")) {
+        e.preventDefault();
+        submenu.classList.add("open");
+      }
+      // Se já estiver aberto, o clique funciona normalmente
     }
   });
 });
