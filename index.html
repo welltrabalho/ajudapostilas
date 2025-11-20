@@ -256,6 +256,110 @@ nav {
   right: 20px;
   cursor: pointer;
 }
+
+/* BOTÃO ESTILIZADO PARA O QUADRO DE HORÁRIOS (AUMENTO MENOR) */
+.btn-horarios {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 25px auto;
+  padding: 10px 20px;  /* 🔥 menor ainda */
+  font-size: 1rem;    /* 🔥 menor */
+  font-weight: 600;
+  color: white;
+
+  background: rgba(255, 255, 255, 0.08); /* 🔥 transparente */
+  backdrop-filter: blur(6px);            /* 🔥 vidro fosco */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.25);
+  transition: 0.25s ease-in-out;
+  letter-spacing: 0.8px;
+  
+}
+
+/* ÍCONE DENTRO DO BOTÃO (MENOR) */
+.btn-horarios i {
+  font-size: 1.2rem; /* 🔥 menor */
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .btn-horarios {
+    width: 60%;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06); /* mais transparente no celular */
+  }
+ 
+  .btn-horarios i {
+    font-size: 1rem;
+  }
+}
+
+/* ÍCONE DENTRO DO BOTÃO (MENOR) */
+.btn-horarios i {
+  font-size: 1.35rem; /* 🔥 reduzido */
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .btn-horarios {
+    width: 60%;        /* 🔥 menor ainda */
+    padding: 8px 10px;/* 🔥 mais compacto */
+    font-size: 0.8rem; /* 🔥 texto menor */
+    border-radius: 8px;
+  }
+
+  .btn-horarios i {
+    font-size: 1.1rem; /* 🔥 ícone menor */
+  }
+}
+
+/* ICONE DENTRO DO BOTÃO */
+.btn-horarios i {
+  font-size: 1.6rem;
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+/* ANIMAÇÃO DO ÍCONE */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* HOVER BOTÃO */
+.btn-horarios:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 22px rgba(0, 200, 255, 1);
+  filter: brightness(1.17);
+}
+
+/* CLICK */
+.btn-horarios:active {
+  transform: scale(0.98);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .btn-horarios {
+    width: 90%;
+    padding: 20px;
+    font-size: 1.35rem;
+  }
+  .btn-horarios i {
+    font-size: 1.8rem;
+  }
+}
+
+}
 </style>
 </head>
 <body>
@@ -301,7 +405,10 @@ nav {
 </section>
 
 <!-- BOTÃO HORÁRIOS -->
-<button id="toggleHorarioBtn" style="margin: 20px auto; display: block;">Ver Horários dos Professores</button>
+<button id="toggleHorarioBtn" class="btn-horarios">
+  <i class="fa-solid fa-calendar-days"></i>
+  Ver Horários dos Professores
+</button>
 
 <div id="quadroHorarios" style="display: none;" class="horario-container">
   <h2>Horários dos Professores</h2>
