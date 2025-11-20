@@ -73,7 +73,7 @@ nav {
 .nav-list a {
   color: white;
   text-decoration: none;
-  padding: 6px 4px;
+  padding: 6px 4px;H
   transition: 0.2s;
 }
 
@@ -359,7 +359,57 @@ nav {
   }
 }
 
+/* ================================
+   ÍCONES — efeito só no hover
+   ================================ */
+
+.nav-list a i,
+.submenu-list a i {
+  opacity: 0.6;
+  transition: 0.3s ease;
+  filter: drop-shadow(0 0 0px rgba(0,255,255,0)); /* sem brilho padrão */
 }
+
+/* Hover — ícone pulsante apenas ao passar o mouse */
+.nav-list a:hover i,
+.submenu-list a:hover i {
+  opacity: 1;
+  transform: scale(1.2);
+  animation: pulseHoverIcon 1.3s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px rgba(0,255,255,1));
+}
+
+/* Animação usada apenas no HOVER */
+@keyframes pulseHoverIcon {
+  0% { transform: scale(1.1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1.1); }
+}
+
+
+/* ================================
+   TEXTO — efeito só no hover
+   ================================ */
+
+.nav-list a,
+.submenu-list a {
+  color: white;
+  opacity: 0.8;
+  transition: 0.3s ease;
+  text-shadow: none;  /* sem brilho antes do hover */
+}
+
+/* Hover — texto com brilho neon */
+.nav-list a:hover,
+.submenu-list a:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  text-shadow:
+    0 0 6px rgba(0,255,255,0.7),
+    0 0 12px rgba(0,255,255,1),
+    0 0 20px rgba(0,255,255,1);
+}
+
 </style>
 </head>
 <body>
