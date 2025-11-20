@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filosofia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+             background-image: url(imgsite/fundo-da-placa-mae.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;  
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .back-button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+        .gallery {
+            display: grid;
+            gap: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            grid-template-columns: repeat(2, 1fr); /* Duas colunas por padrão */
+        }
+        .gallery a {
+            display: block;
+            width: 100%;
+            max-width: 150px;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            position: relative; /* Para posicionar o título */
+        }
+        .gallery a:hover {
+            transform: scale(1.05);
+        }
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        @media (min-width: 600px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr); /* Três colunas para telas a partir de 600px */
+            }
+        }
+        @media (min-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(4, 1fr); /* Quatro colunas para telas a partir de 900px */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">Voltar à Página Principal</button>
+        <div class="gallery">
+            <a href="indexapostilas/livromedio/filosofia/fil1.pdf" target="_blank">
+                <img src="imgsite/filosofia/filo1.png" alt="Capa do Livro 1">
+                <div class="title">Filosofia 1</div>
+            </a>
+            <a href="indexapostilas/livromedio/filosofia/fil2.pdf" target="_blank">
+                <img src="imgsite/filosofia/filo2.png" alt="Capa do Livro 2">
+                <div class="title">Filosofia 2</div>
+            </a>
+            <a href="indexapostilas/livromedio/filosofia/fil3.pdf" target="_blank">
+                <img src="imgsite/filosofia/filo3.png" alt="Capa do Livro 3">
+                <div class="title">Filosofia 3</div>
+            </a>
+            <a href="indexapostilas/livromedio/filosofia/fil4.pdf" target="_blank">
+                <img src="imgsite/filosofia/filo4.png" alt="Capa do Livro 4">
+                <div class="title">Filosofia 4</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
