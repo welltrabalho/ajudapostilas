@@ -12,7 +12,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-image: url(imagens/img.bck/bg-login.jpg);
+            background-image: url(../imgsite/fundo-da-placa-mae.jpg);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;  
@@ -22,20 +22,44 @@
             flex-direction: column;
             align-items: center;
         }
-        .back-button {
-            margin: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
+        /* ======== BOTÃO VOLTAR ESTILIZADO ======== */
+.back-button {
+    margin: 20px;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #007BFF, #00C6FF);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+}
+
+.back-button:hover::after {
+    left: 125%;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
         .gallery {
             display: grid;
             gap: 20px;
@@ -92,65 +116,65 @@
 </head>
 <body>
     <div class="container">
-        <button class="back-button" onclick="window.location.href='index2.html'">Voltar à Página Principal</button>
+        <button class="back-button" onclick="window.location.href='../index.html'">Voltar à Página Principal</button>
         <div class="gallery">
-            <a href="livrofundamental/mat-ef/mat1-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat1-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat1-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat1-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 1</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat2-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat2-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat2-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat2-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 2</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat3-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat3-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat3-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat3-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 3</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat4-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat4-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat4-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat4-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 4</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat5-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat5-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat5-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat5-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 5</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat6-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat6-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat6-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat6-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 6</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat7-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat7-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat7-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat7-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 7</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat8-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat8-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat8-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat8-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 8</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat9-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat9-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat9-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat9-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 9</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat10-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat10-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat10-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat10-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 10</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat11-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat11-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat11-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat11-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 11</div>
             </a>
            
-            <a href="livrofundamental/mat-ef/mat12-ef.pdf" target="_blank">
-                <img src="imagens/imgfundamental/matfund/mat12-ef.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/mat-ef/mat12-ef.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/matfund/mat12-ef.jpg" alt="Capa do Livro 1">
                 <div class="title">Matemática 12</div>
             </a>
            

@@ -12,7 +12,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-             background-image: url(imagens/img.bck/bg-login.jpg);
+             background-image: url(../imgsite/fundo-da-placa-mae.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;  
@@ -22,20 +22,44 @@
             flex-direction: column;
             align-items: center;
         }
-        .back-button {
-            margin: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
+       /* ======== BOTÃO VOLTAR ESTILIZADO ======== */
+.back-button {
+    margin: 20px;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #007BFF, #00C6FF);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+}
+
+.back-button:hover::after {
+    left: 125%;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
         .gallery {
             display: grid;
             gap: 20px;
@@ -92,49 +116,47 @@
 </head>
 <body>
     <div class="container">
-        <button class="back-button" onclick="window.location.href='index2.html'">Voltar à Página Principal</button>
+        <button class="back-button" onclick="window.location.href='../index.html'">Voltar à Página Principal</button>
         <div class="gallery">
-            <a href="livrofundamental/ed.fis-ef/ed-fisica1-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica1-fun.jpg" alt="Capa do Livro 1">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica1-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica1-fun.jpg" alt="Capa do Livro 1">
                 <div class="title">Educação física 1</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica2-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica2-fun.jpg" alt="Capa do Livro 2">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica2-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica2-fun.jpg" alt="Capa do Livro 2">
                 <div class="title">Educação física 2</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica3-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica3-fun.jpg" alt="Capa do Livro 3">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica3-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica3-fun.jpg" alt="Capa do Livro 3">
                 <div class="title">Educação física 3</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica4-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica4-fun.jpg" alt="Capa do Livro 4">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica4-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica4-fun.jpg" alt="Capa do Livro 4">
                 <div class="title">Educação física 4</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica5-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica5-fun.jpg" alt="Capa do Livro 5">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica5-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica5-fun.jpg" alt="Capa do Livro 5">
                 <div class="title">Educação física 5</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica6-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica6-fun.jpg" alt="Capa do Livro 6">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica6-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica6-fun.jpg" alt="Capa do Livro 6">
                 <div class="title">Educação física 6</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica7-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica7-fun.jpg" alt="Capa do Livro 7">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica7-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica7-fun.jpg" alt="Capa do Livro 7">
                 <div class="title">Educação física 7</div>
             </a>
            
-            <a href="livrofundamental/ed.fis-ef/ed-fisica8-fun.pdf" target="_blank">
-                <img src="imagens/imgfundamental/ed.fund/ed-fisica8-fun.jpg" alt="Capa do Livro 8">
+            <a href="../indexapostilas/livrofundamental/ed.fis-ef/ed-fisica8-fun.pdf" target="_blank">
+                <img src="../imgsite/imgfundamental/ed.fund/ed-fisica8-fun.jpg" alt="Capa do Livro 8">
                 <div class="title">Educação física 8</div>
             </a>
-           
-            
         </div>
     </div>
 </body>
