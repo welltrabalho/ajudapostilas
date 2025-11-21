@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATEMÁTICA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url(imgsite/fundo-da-placa-mae.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;  
+            
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* ======== BOTÃO VOLTAR ESTILIZADO ======== */
+.back-button {
+    margin: 20px;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #007BFF, #00C6FF);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.back-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+}
+
+.back-button:hover::after {
+    left: 125%;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+        
+        .gallery {
+            display: grid;
+            gap: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            grid-template-columns: repeat(2, 1fr); /* Duas colunas por padrão */
+        }
+        .gallery a {
+            display: block;
+            width: 100%;
+            max-width: 150px;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            position: relative; /* Para posicionar o título */
+        }
+        .gallery a:hover {
+            transform: scale(1.05);
+        }
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        @media (min-width: 600px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr); /* Três colunas para telas a partir de 600px */
+            }
+        }
+        @media (min-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(4, 1fr); /* Quatro colunas para telas a partir de 900px */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">Voltar à Página Principal</button>
+        <div class="gallery">
+            <a href="indexapostilas/livromedio/matematica/mat1.pdf" target="_blank">
+                <img src="imgsite/matmed/matemtica1.jpg" alt="Capa do Livro 1">
+                <div class="title">Matemática 1</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat2.pdf" target="_blank">
+                <img src="imgsite/matmed/mat2.jpg" alt="Capa do Livro 2">
+                <div class="title">Matemática 2</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat3.pdf" target="_blank">
+                <img src="imgsite/matmed/mat3.jpg" alt="Capa do Livro 3">
+                <div class="title">Matemática 3</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat4.pdf" target="_blank">
+                <img src="imgsite/matmed/mat4.jpg" alt="Capa do Livro 4">
+                <div class="title">Matemática 4</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat5.pdf" target="_blank">
+                <img src="imgsite/matmed/mat5.jpg" alt="Capa do Livro 5">
+                <div class="title">Matemática 5</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat6.pdf" target="_blank">
+                <img src="imgsite/matmed/mat6.jpg" alt="Capa do Livro 6">
+                <div class="title">Matemática 6</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat7.pdf" target="_blank">
+                <img src="imgsite/matmed/mat7.jpg" alt="Capa do Livro 7">
+                <div class="title">Matemática 7</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat8.pdf" target="_blank">
+                <img src="imgsite/matmed/mat8.jpg" alt="Capa do Livro 8">
+                <div class="title">Matemática 8</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat9.pdf" target="_blank">
+                <img src="imgsite/matmed/mat9.jpg" alt="Capa do Livro 9">
+                <div class="title">Matemática 9</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat10.pdf" target="_blank">
+                <img src="imgsite/matmed/mat10.jpg" alt="Capa do Livro 10">
+                <div class="title">Matemática 10</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat11.pdf" target="_blank">
+                <img src="imgsite/matmed/mat11.jpg" alt="Capa do Livro 11">
+                <div class="title">Matemática 11</div>
+            </a>
+            <a href="indexapostilas/livromedio/matematica/mat12.pdf" target="_blank">
+                <img src="imgsite/matmed/mat12.jpg" alt="Capa do Livro 12">
+                <div class="title">Matemática 12</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

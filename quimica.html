@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INGLÊS</title>
+    <title>QUÍMICA</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,20 +39,25 @@
     overflow: hidden;
 }
 
-.back-button {
-    margin: 20px;
-    padding: 14px 28px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    background: linear-gradient(45deg, #007BFF, #00C6FF);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+.back-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+}
+
+.back-button:hover::after {
+    left: 125%;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
         .gallery {
@@ -113,33 +118,37 @@
     <div class="container">
         <button class="back-button" onclick="window.location.href='index.html'">Voltar à Página Principal</button>
         <div class="gallery">
-            <a href="indexapostilas/livromedio/ingles/ing1.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing1.jpg" alt="Capa do Livro 1">
-                <div class="title">Inglês 1</div>
+            <a href="indexapostilas/livromedio/quimica/qui1.pdf" target="_blank">
+                <img src="imgsite/quimica/qui1.png" alt="Capa do Livro 1">
+                <div class="title">Química 1</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing2.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing2.jpg" alt="Capa do Livro 2">
-                <div class="title">Inglês 2</div>
+            <a href="indexapostilas/livromedio/quimica/qui2.pdf" target="_blank">
+                <img src="imgsite/quimica/qui2.png" alt="Capa do Livro 2">
+                <div class="title">Química 2</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing3.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing3.jpg" alt="Capa do Livro 3">
-                <div class="title">Inglês 3</div>
+            <a href="indexapostilas/livromedio/quimica/qui3.pdf" target="_blank">
+                <img src="imgsite/quimica/qui3.png" alt="Capa do Livro 3">
+                <div class="title">Química 3</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing4.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing4.jpg" alt="Capa do Livro 4">
-                <div class="title">Inglês 4</div>
+            <a href="indexapostilas/livromedio/quimica/qui4.pdf" target="_blank">
+                <img src="imgsite/quimica/qui4.png" alt="Capa do Livro 4">
+                <div class="title">Química 4</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing5.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing5.jpg" alt="Capa do Livro 4">
-                <div class="title">Inglês 5</div>
+            <a href="indexapostilas/livromedio/quimica/qui5.pdf" target="_blank">
+                <img src="imgsite/quimica/qui5.png" alt="Capa do Livro 5">
+                <div class="title">Química 5</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing6.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing6.jpg" alt="Capa do Livro 4">
-                <div class="title">Inglês 6</div>
+            <a href="indexapostilas/livromedio/quimica/qui6.pdf" target="_blank">
+                <img src="imgsite/quimica/qui6.png" alt="Capa do Livro 6">
+                <div class="title">Química 6</div>
             </a>
-            <a href="indexapostilas/livromedio/ingles/ing7.pdf" target="_blank">
-                <img src="imgsite/inglesmed/ing7.jpg" alt="Capa do Livro 4">
-                <div class="title">Inglês 7</div>
+            <a href="indexapostilas/livromedio/quimica/qui7.pdf" target="_blank">
+                <img src="imgsite/quimica/qui7.png" alt="Capa do Livro 7">
+                <div class="title">Química 7</div>
+            </a>
+            <a href="indexapostilas/livromedio/quimica/qui8.pdf" target="_blank">
+                <img src="imgsite/quimica/qui8.png" alt="Capa do Livro 8">
+                <div class="title">Química 8</div>
             </a>
             
         </div>
