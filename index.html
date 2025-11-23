@@ -410,7 +410,9 @@ li:hover > .submenu-list{
 .modal-close{position:absolute;top:8px;right:10px;background:transparent;border:none;font-size:1.25rem;cursor:pointer;color:#666}
 
 /* botão no rodapé para reexibir aviso */
-.btn-aviso-footer{margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid #00eaff;background:transparent;color:#00eaff;cursor:pointer;font-weight:600}
+.btn-aviso-footer{margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid #00eaff;background:transparent;color:#00eaff;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.btn-aviso-footer i{font-size:1.05rem;color:#00eaff;animation:pulse 1.4s infinite}
+.btn-aviso-footer:hover{background:rgba(0,234,255,0.06);box-shadow:0 6px 18px rgba(0,198,255,0.06);transform:translateY(-2px);transition:transform .18s}
 
 
 
@@ -732,7 +734,7 @@ document.querySelectorAll(".submenu > a").forEach(link=>{
         <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
-    <button id="show-aviso-btn" class="btn-aviso-footer" aria-label="Mostrar aviso novamente">Mostrar aviso</button>
+    <button id="show-aviso-btn" class="btn-aviso-footer" aria-label="Mostrar aviso novamente"><i class="fa-solid fa-bell"></i>Mostrar aviso</button>
 
     <p class="copyright">© 2025 — Todos os direitos reservados.</p>
 </footer>
