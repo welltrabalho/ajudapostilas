@@ -380,9 +380,57 @@ li:hover > .submenu-list{
 }
 
 
+/* ======= Modal de Aviso (horário de provas) ======= */
+#modal-aviso-overlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  z-index:2500;
+}
+#modal-aviso{
+  background:#fff;
+  color:#0b0b0b;
+  padding:18px 18px 16px 18px;
+  border-radius:12px;
+  width:92%;
+  max-width:520px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.45);
+  font-size:1rem;
+  position:relative;
+  outline:none;
+}
+#modal-aviso h3{margin-top:0;color:#007BFF}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.modal-btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.modal-btn.secondary{background:transparent;border:1px solid rgba(0,0,0,0.12);color:#333}
+.modal-btn.primary{background:linear-gradient(45deg,#007BFF,#00C6FF);color:#fff;box-shadow:0 6px 18px rgba(0,198,255,0.12)}
+.modal-close{position:absolute;top:8px;right:10px;background:transparent;border:none;font-size:1.25rem;cursor:pointer;color:#666}
+
+/* botão no rodapé para reexibir aviso */
+.btn-aviso-footer{margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid #00eaff;background:transparent;color:#00eaff;cursor:pointer;font-weight:600}
+
+
+
 </style>
 </head>
 <body>
+
+<!-- Modal de aviso sobre horário temporário (ex.: provas) -->
+<div id="modal-aviso-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-aviso-title">
+  <div id="modal-aviso" tabindex="-1">
+    <button class="modal-close" id="modal-aviso-close" aria-label="Fechar">&times;</button>
+    <h3 id="modal-aviso-title">Aviso — Horário Temporário</h3>
+    <p>Devido a obras no prédio, o horário de funcionamento foi alterado esses dias  para <strong>17:00 às 19:30</strong>. Algumas atividades podem estar suspensas ou com atendimento reduzido.</p>
+    <p style="opacity:.85;font-size:.95rem">Agradecemos a compreensão. Para mais informações, consulte a agenda ou contate a equipe.</p>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" id="modal-aviso-never">Não mostrar novamente</button>
+      <button class="modal-btn primary" id="modal-aviso-ok">Entendi</button>
+    </div>
+  </div>
+</div>
 
 <header>
   <nav>
@@ -635,6 +683,45 @@ document.querySelectorAll(".submenu > a").forEach(link=>{
     }
   });
 });
+
+// ======= Modal aviso (horário de provas) =======
+(function(){
+  const LS_KEY = 'aviso_horario_ignorar';
+  const overlay = document.getElementById('modal-aviso-overlay');
+  const dialog = document.getElementById('modal-aviso');
+  const btnClose = document.getElementById('modal-aviso-close');
+  const btnOk = document.getElementById('modal-aviso-ok');
+  const btnNever = document.getElementById('modal-aviso-never');
+
+  function openModal(){
+    if(overlay){
+      overlay.style.display = 'flex';
+      if(dialog) dialog.focus();
+    }
+  }
+  function closeModal(){
+    if(overlay) overlay.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      const ignored = localStorage.getItem(LS_KEY);
+      if(!ignored) openModal();
+    }catch(e){ openModal(); }
+
+    if(btnClose) btnClose.addEventListener('click', closeModal);
+    if(btnOk) btnOk.addEventListener('click', closeModal);
+    if(btnNever) btnNever.addEventListener('click', function(){
+      try{ localStorage.setItem(LS_KEY, '1'); }catch(e){}
+      closeModal();
+    });
+
+    if(overlay) overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+  });
+})();
 </script>
 <footer class="footer">
     <p>Desenvolvido com <i class="fas fa-computer"></i> por <span>W&ll</span></p>
@@ -645,8 +732,25 @@ document.querySelectorAll(".submenu > a").forEach(link=>{
         <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <button id="show-aviso-btn" class="btn-aviso-footer" aria-label="Mostrar aviso novamente">Mostrar aviso</button>
+
     <p class="copyright">© 2025 — Todos os direitos reservados.</p>
 </footer>
+
+<script>
+// botão do rodapé — limpa preferência e reexibe o modal
+document.addEventListener('DOMContentLoaded', function(){
+  const showBtn = document.getElementById('show-aviso-btn');
+  if(!showBtn) return;
+  showBtn.addEventListener('click', function(){
+    try{ localStorage.removeItem('aviso_horario_ignorar'); }catch(e){}
+    const overlay = document.getElementById('modal-aviso-overlay');
+    const dialog = document.getElementById('modal-aviso');
+    if(overlay){ overlay.style.display = 'flex'; }
+    if(dialog){ dialog.focus(); }
+  });
+});
+</script>
 
 </body>
 </html>
