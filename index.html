@@ -415,6 +415,12 @@ li:hover > .submenu-list{
 .btn-aviso-footer i{font-size:1.05rem;color:#00eaff;animation:pulse 1.4s infinite}
 .btn-aviso-footer:hover{background:rgba(0,234,255,0.06);box-shadow:0 6px 18px rgba(0,198,255,0.06);transform:translateY(-2px);transition:transform .18s}
 
+/* Aviso de provas — classes organizadas */
+.aviso-provas{margin:12px 0;font-weight:600}
+.aviso-provas .label{color:#f57c00;font-weight:800}
+.aviso-provas .descricao{color:#333;font-weight:600}
+.aviso-provas .horario{display:inline-block;background:linear-gradient(90deg,#ffe0b2,#ffd54f);color:#0b0b0b;padding:6px 10px;border-radius:8px;font-weight:800;margin-top:4px}
+
 </style>
 </head>
 <body>
@@ -455,12 +461,14 @@ li:hover > .submenu-list{
 </li>
       </ul>
 
-      <p style="margin:12px 0;color:#f57c00;font-weight:600">
-        <strong>⏰ Atenção:</strong> Provas sendo realizadas de <strong>segunda a quinta 09:30h às 19h30 sextas das 09:30h às 16:10h </strong>
+      <p class="aviso-provas">
+        <strong class="label">⏰ Atenção:</strong>
+        <span class="descricao">Provas sendo realizadas de</span>
+        <strong class="horario">segunda a quinta — 09:30 às 19:30; sexta — 09:30 às 16:10</strong>
       </p>
 
       <p style="margin:10px 0;opacity:0.85;font-size:0.94rem">
-       SEJAM TODOS BEM VINDOS 
+       <b>SEJAM TODO BEM VINDOS AO CEJA!</b>
       </p>
 
     </div>
