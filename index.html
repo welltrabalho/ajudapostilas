@@ -381,6 +381,191 @@ li:hover > .submenu-list{
 }
 
 
+/* ======== NETFLIX STYLE MODULES ======== */
+.netflix-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.netflix-section {
+  margin-bottom: 50px;
+}
+
+.netflix-section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 234, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.netflix-section-title i {
+  color: #00eaff;
+  font-size: 1.8rem;
+}
+
+.netflix-scroll-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.netflix-scroll-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.netflix-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.netflix-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 234, 255, 0.5);
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.netflix-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 234, 255, 0.8);
+}
+
+.netflix-card {
+  flex: 0 0 280px;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 50, 100, 0.8), rgba(0, 20, 50, 0.9));
+  border: 1px solid rgba(0, 234, 255, 0.2);
+  scroll-snap-align: start;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.netflix-card:hover {
+  transform: scale(1.08) translateY(-8px);
+  border-color: rgba(0, 234, 255, 0.6);
+  box-shadow: 0 12px 25px rgba(0, 234, 255, 0.25);
+}
+
+.netflix-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: linear-gradient(135deg, #1a3a54, #0f1f33);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.netflix-card:hover .netflix-card-image {
+  transform: scale(1.05);
+}
+
+.netflix-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.netflix-card-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.netflix-card-desc {
+  color: #b7faff;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.netflix-card-icon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 2.5rem;
+  opacity: 0.9;
+  transition: transform 0.3s;
+}
+
+.netflix-card:hover .netflix-card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Botão de navegação scroll */
+.scroll-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 234, 255, 0.8);
+  color: #000;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s;
+  font-size: 1.4rem;
+  z-index: 10;
+}
+
+.netflix-section:hover .scroll-nav-btn {
+  opacity: 0.7;
+}
+
+.scroll-nav-btn:hover {
+  opacity: 1 !important;
+  background: rgba(0, 234, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-nav-btn.left {
+  left: 0;
+}
+
+.scroll-nav-btn.right {
+  right: 0;
+}
+
+@media(max-width: 768px) {
+  .netflix-card {
+    flex: 0 0 200px;
+  }
+
+  .netflix-section-title {
+    font-size: 1.3rem;
+  }
+
+  .scroll-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
 /* ======= Modal de Aviso (horário de provas) ======= */
 #modal-aviso-overlay{
   position:fixed;
@@ -587,11 +772,256 @@ li:hover > .submenu-list{
   <div id="cards-horarios" class="cards-horarios"></div>
 </div>
 
+<!-- NETFLIX STYLE APOSTILAS SECTION -->
+<div class="netflix-container">
+  <!-- ENSINO MÉDIO -->
+  <div class="netflix-section">
+    <h2 class="netflix-section-title">
+      <i class="fa-solid fa-book"></i> Ensino Médio
+    </h2>
+    <div class="netflix-scroll-container" id="scroll-medio">
+      <div class="netflix-card" data-link="artesmed.html">
+        <div class="netflix-card-image">🎨</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Artes</div>
+          <div class="netflix-card-desc">Explore a criatividade</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="biologia.html">
+        <div class="netflix-card-image">🧬</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Biologia</div>
+          <div class="netflix-card-desc">Vida e evolução</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="edfisicamed.html">
+        <div class="netflix-card-image">⚽</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Educação Física</div>
+          <div class="netflix-card-desc">Movimento e saúde</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="fisica.html">
+        <div class="netflix-card-image">⚛️</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Física</div>
+          <div class="netflix-card-desc">Leis da natureza</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="filosofia.html">
+        <div class="netflix-card-image">🧠</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Filosofia</div>
+          <div class="netflix-card-desc">Pensamento crítico</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="geomed.html">
+        <div class="netflix-card-image">🌍</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Geografia</div>
+          <div class="netflix-card-desc">Mundo e paisagem</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="histmed.html">
+        <div class="netflix-card-image">📚</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">História</div>
+          <div class="netflix-card-desc">Passado e memória</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="ingmed.html">
+        <div class="netflix-card-image">🌐</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Inglês</div>
+          <div class="netflix-card-desc">Idiomas do mundo</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="matmed.html">
+        <div class="netflix-card-image">🔢</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Matemática</div>
+          <div class="netflix-card-desc">Números e lógica</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="portmed.html">
+        <div class="netflix-card-image">📝</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Português</div>
+          <div class="netflix-card-desc">Linguagem e expressão</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="quimica.html">
+        <div class="netflix-card-image">🧪</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Química</div>
+          <div class="netflix-card-desc">Elementos e reações</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="sociologia.html">
+        <div class="netflix-card-image">👥</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Sociologia</div>
+          <div class="netflix-card-desc">Sociedade e cultura</div>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- ENSINO FUNDAMENTAL -->
+  <div class="netflix-section">
+    <h2 class="netflix-section-title">
+      <i class="fa-solid fa-graduation-cap"></i> Ensino Fundamental
+    </h2>
+    <div class="netflix-scroll-container" id="scroll-fundamental">
+      <div class="netflix-card" data-link="enfundamental/artes-ef.html">
+        <div class="netflix-card-image">🎨</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Artes</div>
+          <div class="netflix-card-desc">Criatividade infantil</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/ciencias.html">
+        <div class="netflix-card-image">🔬</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Ciências</div>
+          <div class="netflix-card-desc">Descobertas naturais</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/ed.fund.html">
+        <div class="netflix-card-image">🏃</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Educação Física</div>
+          <div class="netflix-card-desc">Esporte e movimento</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/geo.fund.html">
+        <div class="netflix-card-image">🗺️</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Geografia</div>
+          <div class="netflix-card-desc">Lugares e mapas</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/hist-ef.html">
+        <div class="netflix-card-image">🏛️</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">História</div>
+          <div class="netflix-card-desc">Histórias do passado</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/ing-ef.html">
+        <div class="netflix-card-image">🗣️</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Inglês</div>
+          <div class="netflix-card-desc">Primeiros passos</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/mat-ef.html">
+        <div class="netflix-card-image">🧮</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Matemática</div>
+          <div class="netflix-card-desc">Cálculo e formas</div>
+        </div>
+      </div>
+
+      <div class="netflix-card" data-link="enfundamental/por-ef.html">
+        <div class="netflix-card-image">✏️</div>
+        <div class="netflix-card-overlay">
+          <span class="netflix-card-icon">📖</span>
+          <div class="netflix-card-title">Português</div>
+          <div class="netflix-card-desc">Leitura e escrita</div>
+        </div>
+      </div>
+    </div>
+    <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</div>
+
 <div class="whatsapp-button">
   <a href="https://api.whatsapp.com/send?phone=552126229012&text=Olá,%20preciso%20de%20ajuda" target="_blank">
     <img src="imgsite/whatsapp.png" alt="whatsapp">
   </a>
 </div>
+
+<script>
+// ======= NETFLIX CARDS INTERACTION =======
+document.querySelectorAll('.netflix-card').forEach(card => {
+  card.addEventListener('click', function() {
+    const link = this.getAttribute('data-link');
+    if(link) window.location.href = link;
+  });
+});
+
+// Scroll função para os botões
+function scrollSection(event, direction) {
+  const button = event.target.closest('.scroll-nav-btn');
+  const section = button.closest('.netflix-section');
+  const container = section.querySelector('.netflix-scroll-container');
+  
+  const scrollAmount = 300;
+  container.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+// Keyboard navigation
+document.querySelectorAll('.netflix-scroll-container').forEach(container => {
+  container.addEventListener('keydown', function(e) {
+    if(e.key === 'ArrowLeft') {
+      this.scrollBy({ left: -300, behavior: 'smooth' });
+    } else if(e.key === 'ArrowRight') {
+      this.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  });
+});
+</script>
 
 <script>
 // dados horários
