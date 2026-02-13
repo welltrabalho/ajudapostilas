@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Português - Médio </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <style>
         /* ======== ESTILOS GERAIS ======== */
@@ -229,7 +230,7 @@
 <body>
     <div class="header-section">
         <h1 class="page-title">
-            <i class="fa-solid fa-dna"></i> Português - Médio
+            <i class="fa-solid fa-book"></i> Português - Médio
         </h1>
         <p class="page-desc">Explore apostilas de Português e aprofunde seus conhecimentos</p>
     </div>
@@ -333,10 +334,6 @@
                     <p class="netflix-card-title">Português 14</p>
                 </div>
             </a>
-
-          
-                </div>
-            </a>
         </div>
 
         <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
@@ -356,7 +353,7 @@
     <script>
         function scrollSection(event, direction) {
             const button = event.target.closest('.scroll-nav-btn');
-            const container = document.getElementById('scroll-biologia');
+            const container = document.getElementById('scroll-portugues');
             
             const scrollAmount = 300;
             container.scrollBy({

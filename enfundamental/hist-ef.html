@@ -232,13 +232,13 @@
 <body>
     <div class="header-section">
         <h1 class="page-title">
-            <i class="fa-solid fa-leaf"></i> História - Ensino Fundamental
+            <i class="fa-solid fa-book"></i> História - Ensino Fundamental
         </h1>
         <p class="page-desc">Explore apostilas de História e aprofunde seus conhecimentos</p>
     </div>
 
     <div class="netflix-container">
-        <div class="netflix-scroll-container" id="scroll-artes">
+        <div class="netflix-scroll-container" id="scroll-historia">
             <a href="../indexapostilas/livrofundamental/hist-ef/hist1fun.pdf" target="_blank" class="netflix-card">
                 <img src="../imgsite/imgfundamental/hist.fund/hist1-ef.jpg" alt="História 1" class="netflix-card-image">
                 <div class="netflix-card-overlay">
@@ -313,7 +313,7 @@
     <script>
         function scrollSection(event, direction) {
             const button = event.target.closest('.scroll-nav-btn');
-            const container = document.getElementById('scroll-artes');
+            const container = document.getElementById('scroll-historia');
             
             const scrollAmount = 300;
             container.scrollBy({
