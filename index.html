@@ -1,1425 +1,2181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Menu Escolar Responsivo</title>
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-<style>
-  
-*{box-sizing:border-box}
-body{
-  font-family:"Poppins",sans-serif;
-  background-image:url("imgsite/fundo-da-placa-mae.jpg");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-  margin:0;
-  min-height:100vh;
-}
-
-/* header/nav */
-header{
-  width:100%;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(10px);
-  padding:15px 20px;
-  position:fixed;
-  top:0;
-  z-index:1000;
-}
-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.logo-img{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid #fff;
-}
-@media(max-width:768px){.logo-img{width:45px;height:45px}}
-
-/* nav-list */
-.nav-list{
-  display:flex;
-  list-style:none;
-  gap:20px;
-}
-.nav-list a{
-  color:#fff;
-  text-decoration:none;
-  opacity:.95;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-.nav-list li{position:relative;}
-
-/* submenus com slide e fade */
-.submenu-list{
-  position:absolute;
-  top:100%;
-  left:0;
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(6px);
-  border-radius:8px;
-  padding:10px 0;
-  min-width:180px;
-  opacity:0;
-  transform: translateY(15px);
-  transition:0.3s ease;
-  pointer-events:none;
-  z-index:500;
-}
-.submenu-list li{list-style:none;}
-.submenu-list a{
-  display:flex;
-  align-items:center;
-  padding:8px 16px;
-  color:#fff;
-  transition:0.2s;
-}
-.submenu-list a:hover{
-  background:rgba(0,255,255,0.1);
-  color:#00eaff;
-  text-shadow:0 0 6px #00eaff;
-}
-li:hover > .submenu-list{
-  opacity:1;
-  transform: translateY(0);
-  pointer-events:auto;
-}
-
-/* setinha animada */
-.submenu > a i.fa-chevron-down{
-  margin-left:auto;
-  transition:0.3s;
-}
-.submenu.open > a i.fa-chevron-down{
-  transform: rotate(180deg);
-}
-
-/* hero */
-.hero{padding-top:110px;text-align:center}
-.hero h1{font-size:1.8rem;margin-bottom:6px}
-.hero p{opacity:.8}
-
-/* quadro */
-.horario-container{
-  background:rgba(0,0,0,0.7);
-  padding:18px;
-  margin:20px auto;
-  width:95%;
-  max-width:920px;
-  border-radius:12px;
-}
-.cards-horarios{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-top:14px;
-}
-.card-horario{
-  background:rgba(20,20,20,0.85);
-  padding:14px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.12);
-  box-shadow:0 4px 8px rgba(0,0,0,0.4);
-  transition:.18s;
-}
-.card-horario:hover{transform:scale(1.02)}
-.card-horario p{margin:6px 0}
-.card-horario span{font-weight:700;color:#00eaff}
-@media(max-width:768px){.cards-horarios{grid-template-columns:1fr}}
-
-/* botão horários */
-.btn-horarios{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:22px auto;
-  padding:10px 16px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.14);
-  color:#fff;
-  cursor:pointer;
-}
-.btn-horarios i{font-size:1.25rem;animation:pulse 1.4s infinite}
-
-/* pulse */
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.18)}100%{transform:scale(1)}}
-
-/* filtros */
-.filtros{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin-top:12px;
-}
-.filtros input,.filtros select{
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:rgba(20,20,20,0.6);
-  color:#fff;
-  min-width:200px;
-}
-@media(max-width:768px){
-  .filtros{flex-direction:column;align-items:center}
-  .filtros input,.filtros select{width:90%}
-}
-
-/* whatsapp */
-.whatsapp-button{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  z-index:9999;
-}
-.whatsapp-button img{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-}
-
-/* HAMBURGUER */
-.hamburger{
-  width:35px;
-  height:30px;
-  cursor:pointer;
-  display:none;
-  flex-direction:column;
-  justify-content:space-between;
-}
-.hamburger div{
-  width:100%;
-  height:5px;
-  background:white;
-  border-radius:5px;
-  transition:0.3s;
-}
-.hamburger.active .line1{
-  transform:rotate(45deg) translate(7px,7px);
-}
-.hamburger.active .line2{opacity:0;}
-.hamburger.active .line3{
-  transform:rotate(-45deg) translate(7px,-7px);
-}
-
-/* NAV MOBILE */
-@media(max-width:768px){
-  .hamburger{display:flex;}
-  .nav-list{
-    position:absolute;
-    top:85px;
-    right:0;
-    width:75%;
-    background:rgba(0,0,0,0.6);
-    backdrop-filter:blur(6px);
-    flex-direction:column;
-    gap:10px;
-    padding:20px;
-    display:none;
-    border-radius:10px;
-  }
-  .nav-list.show{display:flex;}
-  .submenu-list{
-    position:relative !important;
-    background:rgba(0,0,0,0.5);
-    padding:0;
-    margin:0;
-    border-radius:8px;
-    display:none;
-    flex-direction:column;
-  }
-  .submenu-list a{padding:10px 16px;}
-}
-
-/* Ícones menu desktop */
-.nav-list a i{
-  transition:0.25s;
-}
-.nav-list a:hover i{
-  animation:pulse 1.4s infinite;
-  color:#00eaff;
-  text-shadow:0 0 8px #00eaff;
-}
-.hamburger:hover .line1,
-.hamburger:hover .line2,
-.hamburger:hover .line3{
-  animation:pulse 1.4s infinite;
-  background:#00eaff;
-  box-shadow:0 0 8px #00eaff;
-}
-/* ======= Rodapé Futurista com Ícones ======= */
-.footer {
-  margin-top: 40px;
-  width: 100%;
-  padding: 20px 0 30px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  border-top: 1px solid rgba(0, 234, 255, 0.35);
-  box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
-}
-
-.footer span {
-  color: #00eaff;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00eaff, 0 0 18px #00eaff;
-  animation: neonPulse 2s infinite alternate;
-}
-
-/* ======= Rodapé Futurista com Bordas Arredondadas ======= */
-.footer {
-  margin-top: 40px;
-  width: 90%;
-  padding: 20px 0 30px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  border-top: 1px solid rgba(0, 234, 255, 0.35);
-  box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
-
-  /* BORDAS ARREDONDADAS */
-  border-radius: 18px;
-
-  /* Centraliza bonito */
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer i.fas {
-  color: #00eaff;
-  margin: 0 4px;
-  text-shadow: 0 0 10px #00eaff;
-}
-
-.footer span {
-  color: #00eaff;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00eaff, 0 0 18px #00eaff;
-  animation: neonPulse 2s infinite alternate;
-}
-
-/* ======= Rodapé Futurista com Bordas Arredondadas + Copyright ======= */
-.footer {
-  margin-top: 40px;
-  width: 90%;
-  padding: 20px 0 20px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  border-top: 1px solid rgba(0, 234, 255, 0.35);
-  box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
-  border-radius: 18px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer i.fas {
-  color: #00eaff;
-  margin: 0 4px;
-  text-shadow: 0 0 10px #00eaff;
-}
-
-.footer span {
-  color: #00eaff;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00eaff, 0 0 18px #00eaff;
-  animation: neonPulse 2s infinite alternate;
-}
-
-.social-icons {
-  margin: 12px 0 5px;
-}
-
-.social-icons a {
-  font-size: 22px;
-  color: #00eaff;
-  margin: 0 10px;
-  transition: transform 0.25s, text-shadow 0.25s;
-}
-
-.social-icons a:hover {
-  transform: scale(1.2);
-  text-shadow: 0 0 10px #00eaff, 0 0 18px #00eaff;
-}
-
-/* COPYRIGHT */
-.footer .copyright {
-  margin-top: 10px;
-  color: #b7faff;
-  font-size: 0.85rem;
-  opacity: 0.9;
-}
-
-/* animação neon */
-@keyframes neonPulse {
-  0% {
-    text-shadow: 0 0 10px #00eaff;
-  }
-  100% {
-    text-shadow: 0 0 20px #00eaff, 0 0 30px #00eaff;
-  }
-}
-
-
-/* ======== NETFLIX STYLE MODULES ======== */
-.netflix-container {
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.netflix-section {
-  margin-bottom: 50px;
-}
-
-.netflix-section-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 234, 255, 0.3);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.netflix-section-title i {
-  color: #00eaff;
-  font-size: 1.8rem;
-}
-
-.netflix-scroll-container {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding: 10px 0;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-}
-
-.netflix-scroll-container::-webkit-scrollbar {
-  height: 6px;
-}
-
-.netflix-scroll-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.netflix-scroll-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 234, 255, 0.5);
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.netflix-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 234, 255, 0.8);
-}
-
-.netflix-card {
-  flex: 0 0 280px;
-  aspect-ratio: 16/9;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  background: linear-gradient(135deg, rgba(0, 50, 100, 0.8), rgba(0, 20, 50, 0.9));
-  border: 1px solid rgba(0, 234, 255, 0.2);
-  scroll-snap-align: start;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.netflix-card:hover {
-  transform: scale(1.08) translateY(-8px);
-  border-color: rgba(0, 234, 255, 0.6);
-  box-shadow: 0 12px 25px rgba(0, 234, 255, 0.25);
-}
-
-.netflix-card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: linear-gradient(135deg, #1a3a54, #0f1f33);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
-.netflix-card:hover .netflix-card-image {
-  transform: scale(1.05);
-}
-
-.netflix-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  opacity: 1;
-  transition: opacity 0.3s;
-}
-
-.netflix-card-title {
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.netflix-card-desc {
-  color: #b7faff;
-  font-size: 0.85rem;
-  opacity: 0.9;
-}
-
-.netflix-card-icon {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  font-size: 2.5rem;
-  opacity: 0.9;
-  transition: transform 0.3s;
-}
-
-.netflix-card:hover .netflix-card-icon {
-  transform: scale(1.1) rotate(5deg);
-}
-
-/* Botão de navegação scroll */
-.scroll-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 234, 255, 0.8);
-  color: #000;
-  border: none;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: all 0.3s;
-  font-size: 1.4rem;
-  z-index: 10;
-}
-
-.netflix-section:hover .scroll-nav-btn {
-  opacity: 0.7;
-}
-
-.scroll-nav-btn:hover {
-  opacity: 1 !important;
-  background: rgba(0, 234, 255, 1);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.scroll-nav-btn.left {
-  left: 0;
-}
-
-.scroll-nav-btn.right {
-  right: 0;
-}
-
-@media(max-width: 768px) {
-  .netflix-card {
-    flex: 0 0 200px;
-  }
-
-  .netflix-section-title {
-    font-size: 1.3rem;
-  }
-
-  .scroll-nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-}
-
-/* ======= Modal de Aviso (horário de provas) ======= */
-#modal-aviso-overlay{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,0.6);
-  z-index:2500;
-}
-#modal-aviso{
-  background:rgba(255, 255, 255, 0.8);
-  color:#0b0b0b;
-  padding:18px 18px 16px 18px;
-  border-radius:20px;
-  width:92%;
-  max-width:520px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.45);
-  font-size:1rem;
-  position:relative;
-  outline:none;
-}
-#modal-aviso h3{margin-top:0;color:#007BFF}
-.modal-actions{display:flex;gap:3px;justify-content:flex-end;margin-top:10px}
-.modal-btn{padding:8px 10px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-.modal-btn.secondary{background:transparent;border:1px solid rgba(0,0,0,0.12);color:#333}
-.modal-btn.primary{background:linear-gradient(45deg,#007BFF,#00C6FF);color:#fff;box-shadow:0 6px 18px rgba(0,198,255,0.12)}
-.modal-close{position:absolute;top:8px;right:10px;background:transparent;border:none;font-size:1.25rem;cursor:pointer;color:#666}
-
-/* botão no rodapé para reexibir aviso */
-.btn-aviso-footer{margin-top:10px;padding:8px 12px;border-radius:10px;border:1px solid #00eaff;background:transparent;color:#00eaff;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:8px}
-.btn-aviso-footer i{font-size:1.05rem;color:#00eaff;animation:pulse 1.4s infinite}
-.btn-aviso-footer:hover{background:rgba(0,234,255,0.06);box-shadow:0 6px 18px rgba(0,198,255,0.06);transform:translateY(-2px);transition:transform .18s}
-
-/* Aviso de provas — classes organizadas */
-.aviso-provas{margin:12px 0;font-weight:600}
-.aviso-provas .label{color:#f57c00;font-weight:800}
-.aviso-provas .descricao{color:#333;font-weight:600}
-.aviso-provas .horario{display:inline-block;background:linear-gradient(90deg,#ffe0b2,#ffd54f);color:#0b0b0b;padding:6px 10px;border-radius:8px;font-weight:800;margin-top:4px}
-
-</style>
-</head>
-<body>
-
-<!-- Modal de aviso sobre horário temporário (ex.: provas) -->
-<!-- Modal de aviso sobre horário temporário (ex.: provas) -->
-<div id="modal-aviso-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-aviso-title">
-  <div id="modal-aviso" tabindex="-1">
-    <button class="modal-close" id="modal-aviso-close" aria-label="Fechar">&times;</button>
-
-    <h3 id="modal-aviso-title">⚠️ Aviso Importante</h3>
-
-    <div style="line-height:1.7;font-size:0.98rem">
-
-      <p style="margin:10px 0;color:#d32f2f;font-weight:600">
-        <strong>🏗️ Horário da Secretaria:</strong><br>
-        Matrículas e atendimentos diversos:<br>
-        <span style="color:#007BFF;font-size:1.05rem">
-          • Segunda e quinta: 09:40 às 17:00h<br>
-          • Sexta-feira: 09:40h às 16:00h
-        </span>
-      </p>
-
-      <p style="margin:12px 0;opacity:0.9">
-        <strong>📅 Prazos Importantes:</strong>
-      </p>
-
-      <ul style="margin:8px 0 12px 20px;padding:0;list-style:none">
-        <li style="margin:6px 0">✓ Matrículas disponíveis nas <strong style="color:#007BFF">primeiras semanas de fevereiro de 2026, ate final de novembro de 2026</strong></li>
-        <li style="margin:6px 0">
-          ✓ Acesso às notas exclusivamente pela
-          <a href="https://cejarj.cecierj.edu.br/ava"
-             target="_blank"
-             rel="noopener noreferrer"
-             style="color:#007BFF;font-weight:600;text-decoration:none">
-             PLATAFORMA
-          </a>
-        </li>
-      </ul>
-
-      <p class="aviso-provas">
-        <strong class="label">⏰ Atenção:</strong>
-        <span class="descricao">Provas sendo realizadas de</span>
-        <strong class="horario">segunda a quinta — 09:30 às 19:30; sexta — 09:30 às 16:10</strong>
-      </p>
-
-      <p style="margin:10px 0;opacity:0.85;font-size:0.94rem">
-        <b>SEJAM TODO BEM VINDOS AO CEJA!</b>
-      </p>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Escolar Responsivo</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-image: url("imgsite/fundo-da-placa-mae.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      /* header/nav */
+      header {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 15px 20px;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo-img {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+      }
+      @media (max-width: 768px) {
+        .logo-img {
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      /* nav-list */
+      .nav-list {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+      }
+      .nav-list a {
+        color: #fff;
+        text-decoration: none;
+        opacity: 0.95;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-list li {
+        position: relative;
+      }
+
+      /* submenus com slide e fade */
+      .submenu-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        border-radius: 8px;
+        padding: 10px 0;
+        min-width: 180px;
+        opacity: 0;
+        transform: translateY(15px);
+        transition: 0.3s ease;
+        pointer-events: none;
+        z-index: 500;
+      }
+      .submenu-list li {
+        list-style: none;
+      }
+      .submenu-list a {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        color: #fff;
+        transition: 0.2s;
+      }
+      .submenu-list a:hover {
+        background: rgba(0, 255, 255, 0.1);
+        color: #00eaff;
+        text-shadow: 0 0 6px #00eaff;
+      }
+      li:hover > .submenu-list {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      /* setinha animada */
+      .submenu > a i.fa-chevron-down {
+        margin-left: auto;
+        transition: 0.3s;
+      }
+      .submenu.open > a i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      /* hero */
+      .hero {
+        padding-top: 110px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+      .hero p {
+        opacity: 0.8;
+      }
+
+      /* quadro */
+      .horario-container {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 18px;
+        margin: 20px auto;
+        width: 95%;
+        max-width: 920px;
+        border-radius: 12px;
+      }
+      .cards-horarios {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 14px;
+      }
+      .card-horario {
+        background: rgba(20, 20, 20, 0.85);
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        transition: 0.18s;
+      }
+      .card-horario:hover {
+        transform: scale(1.02);
+      }
+      .card-horario p {
+        margin: 6px 0;
+      }
+      .card-horario span {
+        font-weight: 700;
+        color: #00eaff;
+      }
+      @media (max-width: 768px) {
+        .cards-horarios {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* botão horários */
+      .btn-horarios {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 22px auto;
+        padding: 10px 16px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #fff;
+        cursor: pointer;
+      }
+      .btn-horarios i {
+        font-size: 1.25rem;
+        animation: pulse 1.4s infinite;
+      }
+
+      /* pulse */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.18);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* filtros */
+      .filtros {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .filtros input,
+      .filtros select {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(20, 20, 20, 0.6);
+        color: #fff;
+        min-width: 200px;
+      }
+      @media (max-width: 768px) {
+        .filtros {
+          flex-direction: column;
+          align-items: center;
+        }
+        .filtros input,
+        .filtros select {
+          width: 90%;
+        }
+      }
+
+      /* whatsapp */
+      .whatsapp-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+      }
+      .whatsapp-button img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+
+      /* HAMBURGUER */
+      .hamburger {
+        width: 35px;
+        height: 30px;
+        cursor: pointer;
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .hamburger div {
+        width: 100%;
+        height: 5px;
+        background: white;
+        border-radius: 5px;
+        transition: 0.3s;
+      }
+      .hamburger.active .line1 {
+        transform: rotate(45deg) translate(7px, 7px);
+      }
+      .hamburger.active .line2 {
+        opacity: 0;
+      }
+      .hamburger.active .line3 {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+
+      /* NAV MOBILE */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-list {
+          position: absolute;
+          top: 85px;
+          right: 0;
+          width: 75%;
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(6px);
+          flex-direction: column;
+          gap: 10px;
+          padding: 20px;
+          display: none;
+          border-radius: 10px;
+        }
+        .nav-list.show {
+          display: flex;
+        }
+        .submenu-list {
+          position: relative !important;
+          background: rgba(0, 0, 0, 0.5);
+          padding: 0;
+          margin: 0;
+          border-radius: 8px;
+          display: none;
+          flex-direction: column;
+        }
+        .submenu-list a {
+          padding: 10px 16px;
+        }
+      }
+
+      /* Ícones menu desktop */
+      .nav-list a i {
+        transition: 0.25s;
+      }
+      .nav-list a:hover i {
+        animation: pulse 1.4s infinite;
+        color: #00eaff;
+        text-shadow: 0 0 8px #00eaff;
+      }
+      .hamburger:hover .line1,
+      .hamburger:hover .line2,
+      .hamburger:hover .line3 {
+        animation: pulse 1.4s infinite;
+        background: #00eaff;
+        box-shadow: 0 0 8px #00eaff;
+      }
+      /* ======= Rodapé Futurista com Ícones ======= */
+      .footer {
+        margin-top: 40px;
+        width: 100%;
+        padding: 20px 0 30px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        border-top: 1px solid rgba(0, 234, 255, 0.35);
+        box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
+      }
+
+      .footer span {
+        color: #00eaff;
+        font-weight: bold;
+        text-shadow:
+          0 0 10px #00eaff,
+          0 0 18px #00eaff;
+        animation: neonPulse 2s infinite alternate;
+      }
+
+      /* ======= Rodapé Futurista com Bordas Arredondadas ======= */
+      .footer {
+        margin-top: 40px;
+        width: 90%;
+        padding: 20px 0 30px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        border-top: 1px solid rgba(0, 234, 255, 0.35);
+        box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
+
+        /* BORDAS ARREDONDADAS */
+        border-radius: 18px;
+
+        /* Centraliza bonito */
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .footer i.fas {
+        color: #00eaff;
+        margin: 0 4px;
+        text-shadow: 0 0 10px #00eaff;
+      }
+
+      .footer span {
+        color: #00eaff;
+        font-weight: bold;
+        text-shadow:
+          0 0 10px #00eaff,
+          0 0 18px #00eaff;
+        animation: neonPulse 2s infinite alternate;
+      }
+
+      /* ======= Rodapé Futurista com Bordas Arredondadas + Copyright ======= */
+      .footer {
+        margin-top: 40px;
+        width: 90%;
+        padding: 20px 0 20px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        border-top: 1px solid rgba(0, 234, 255, 0.35);
+        box-shadow: 0 -2px 18px rgba(0, 234, 255, 0.25);
+        border-radius: 18px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .footer i.fas {
+        color: #00eaff;
+        margin: 0 4px;
+        text-shadow: 0 0 10px #00eaff;
+      }
+
+      .footer span {
+        color: #00eaff;
+        font-weight: bold;
+        text-shadow:
+          0 0 10px #00eaff,
+          0 0 18px #00eaff;
+        animation: neonPulse 2s infinite alternate;
+      }
+
+      .social-icons {
+        margin: 12px 0 5px;
+      }
+
+      .social-icons a {
+        font-size: 22px;
+        color: #00eaff;
+        margin: 0 10px;
+        transition:
+          transform 0.25s,
+          text-shadow 0.25s;
+      }
+
+      .social-icons a:hover {
+        transform: scale(1.2);
+        text-shadow:
+          0 0 10px #00eaff,
+          0 0 18px #00eaff;
+      }
+
+      /* COPYRIGHT */
+      .footer .copyright {
+        margin-top: 10px;
+        color: #b7faff;
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+
+      /* animação neon */
+      @keyframes neonPulse {
+        0% {
+          text-shadow: 0 0 10px #00eaff;
+        }
+        100% {
+          text-shadow:
+            0 0 20px #00eaff,
+            0 0 30px #00eaff;
+        }
+      }
+
+      /* ======== NETFLIX STYLE MODULES ======== */
+      .netflix-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .netflix-section {
+        margin-bottom: 50px;
+      }
+
+      .netflix-section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 0 2px 8px rgba(0, 234, 255, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .netflix-section-title i {
+        color: #00eaff;
+        font-size: 1.8rem;
+      }
+
+      .netflix-scroll-container {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 234, 255, 0.5);
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 234, 255, 0.8);
+      }
+
+      .netflix-card {
+        flex: 0 0 280px;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 50, 100, 0.8),
+          rgba(0, 20, 50, 0.9)
+        );
+        border: 1px solid rgba(0, 234, 255, 0.2);
+        scroll-snap-align: start;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .netflix-card:hover {
+        transform: scale(1.08) translateY(-8px);
+        border-color: rgba(0, 234, 255, 0.6);
+        box-shadow: 0 12px 25px rgba(0, 234, 255, 0.25);
+      }
+
+      .netflix-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: linear-gradient(135deg, #1a3a54, #0f1f33);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .netflix-card:hover .netflix-card-image {
+        transform: scale(1.05);
+      }
+
+      .netflix-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 60%,
+          rgba(0, 0, 0, 0.8) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        opacity: 1;
+        transition: opacity 0.3s;
+      }
+
+      .netflix-card-title {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+
+      .netflix-card-desc {
+        color: #b7faff;
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+
+      .netflix-card-icon {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 2.5rem;
+        opacity: 0.9;
+        transition: transform 0.3s;
+      }
+
+      .netflix-card:hover .netflix-card-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      /* Botão de navegação scroll */
+      .scroll-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 234, 255, 0.8);
+        color: #000;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s;
+        font-size: 1.4rem;
+        z-index: 10;
+      }
+
+      .netflix-section:hover .scroll-nav-btn {
+        opacity: 0.7;
+      }
+
+      .scroll-nav-btn:hover {
+        opacity: 1 !important;
+        background: rgba(0, 234, 255, 1);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .scroll-nav-btn.left {
+        left: 0;
+      }
+
+      .scroll-nav-btn.right {
+        right: 0;
+      }
+
+      @media (max-width: 768px) {
+        .netflix-card {
+          flex: 0 0 200px;
+        }
+
+        .netflix-section-title {
+          font-size: 1.3rem;
+        }
+
+        .scroll-nav-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
+        }
+      }
+
+      /* ======= Modal de Aviso (horário de provas) ======= */
+      #modal-aviso-overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2500;
+      }
+      #modal-aviso {
+        background: rgba(255, 255, 255, 0.8);
+        color: #0b0b0b;
+        padding: 18px 18px 16px 18px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 520px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+        font-size: 1rem;
+        position: relative;
+        outline: none;
+      }
+      #modal-aviso h3 {
+        margin-top: 0;
+        color: #007bff;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 3px;
+        justify-content: flex-end;
+        margin-top: 10px;
+      }
+      .modal-btn {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .modal-btn.secondary {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        color: #333;
+      }
+      .modal-btn.primary {
+        background: linear-gradient(45deg, #007bff, #00c6ff);
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(0, 198, 255, 0.12);
+      }
+      .modal-close {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      /* botão no rodapé para reexibir aviso */
+      .btn-aviso-footer {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid #00eaff;
+        background: transparent;
+        color: #00eaff;
+        cursor: pointer;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-aviso-footer i {
+        font-size: 1.05rem;
+        color: #00eaff;
+        animation: pulse 1.4s infinite;
+      }
+      .btn-aviso-footer:hover {
+        background: rgba(0, 234, 255, 0.06);
+        box-shadow: 0 6px 18px rgba(0, 198, 255, 0.06);
+        transform: translateY(-2px);
+        transition: transform 0.18s;
+      }
+
+      /* Aviso de provas — classes organizadas */
+      .aviso-provas {
+        margin: 12px 0;
+        font-weight: 600;
+      }
+      .aviso-provas .label {
+        color: #f57c00;
+        font-weight: 800;
+      }
+      .aviso-provas .descricao {
+        color: #333;
+        font-weight: 600;
+      }
+      .aviso-provas .horario {
+        display: inline-block;
+        background: linear-gradient(90deg, #ffe0b2, #ffd54f);
+        color: #0b0b0b;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-weight: 800;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Modal de aviso sobre horário temporário (ex.: provas) -->
+    <!-- Modal de aviso sobre horário temporário (ex.: provas) -->
+    <div
+      id="modal-aviso-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-aviso-title"
+    >
+      <div id="modal-aviso" tabindex="-1">
+        <button class="modal-close" id="modal-aviso-close" aria-label="Fechar">
+          &times;
+        </button>
+
+        <h3 id="modal-aviso-title">⚠️ Aviso Importante</h3>
+
+        <div style="line-height: 1.7; font-size: 0.98rem">
+          <p style="margin: 10px 0; color: #d32f2f; font-weight: 600">
+            <strong>🏗️ Horário da Secretaria:</strong><br />
+            Matrículas e atendimentos diversos:<br />
+            <span style="color: #007bff; font-size: 1.05rem">
+              • Segunda e quinta: 09:40 às 17:00h<br />
+              • Sexta-feira: 09:40h às 16:00h
+            </span>
+          </p>
+
+          <p style="margin: 12px 0; opacity: 0.9">
+            <strong>📅 Prazos Importantes:</strong>
+          </p>
+
+          <ul style="margin: 8px 0 12px 20px; padding: 0; list-style: none">
+            <li style="margin: 6px 0">
+              ✓ Matrículas disponíveis nas
+              <strong style="color: #007bff"
+                >primeiras semanas de fevereiro de 2026, ate final de novembro
+                de 2026</strong
+              >
+            </li>
+            <li style="margin: 6px 0">
+              ✓ Acesso às notas exclusivamente pela
+              <a
+                href="https://cejarj.cecierj.edu.br/ava"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: #007bff; font-weight: 600; text-decoration: none"
+              >
+                PLATAFORMA
+              </a>
+            </li>
+          </ul>
+
+          <p class="aviso-provas">
+            <strong class="label">⏰ Atenção:</strong>
+            <span class="descricao">Provas sendo realizadas de</span>
+            <strong class="horario"
+              >segunda a quinta — 09:30 às 19:30; sexta — 09:30 às 16:10</strong
+            >
+          </p>
+
+          <p style="margin: 10px 0; opacity: 0.85; font-size: 0.94rem">
+            <b>SEJAM TODO BEM VINDOS AO CEJA!</b>
+          </p>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn secondary" id="modal-aviso-never">
+            Não mostrar novamente
+          </button>
+          <button class="modal-btn primary" id="modal-aviso-ok">Entendi</button>
+        </div>
+      </div>
     </div>
 
-    <div class="modal-actions">
-      <button class="modal-btn secondary" id="modal-aviso-never">Não mostrar novamente</button>
-      <button class="modal-btn primary" id="modal-aviso-ok">Entendi</button>
-    </div>
-
-  </div>
-</div>
-
-<div style="display:flex; justify-content:center; margin-top:25px;">
-  <a href="https://cejarj.cecierj.edu.br/ava" target="_blank"
-     style="
-        display:flex;
-        align-items:center;
-        gap:12px;
-        padding:15px 30px;
-        background:linear-gradient(45deg,#007BFF,#00C6FF);
-        color:#fff;
-        font-weight:700;
-        border-radius:14px;
-        font-size:1.15rem;
-        text-decoration:none;
-        box-shadow:0 4px 12px rgba(0, 198, 255, 0.4);
-        transition:0.3s ease;
-     "
-     onmouseover="this.style.transform='scale(1.06)'; this.style.boxShadow='0 6px 18px rgba(0,198,255,0.6)'"
-     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,198,255,0.4)'">
-     
-     <i class="fa-solid fa-book-open"></i>
-     <span>Acessar Plataforma CEJA</span>
-  </a>
-</div>
-
-<header>
-  <nav>
-    <div class="logo">
-      <a href="https://wa.me/552126226012" target="_blank">
-        <img src="imgsite/minha.jpg" class="logo-img" alt="logo">
+    <div style="display: flex; justify-content: center; margin-top: 25px">
+      <a
+        href="https://cejarj.cecierj.edu.br/ava"
+        target="_blank"
+        style="
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 15px 30px;
+          background: linear-gradient(45deg, #007bff, #00c6ff);
+          color: #fff;
+          font-weight: 700;
+          border-radius: 14px;
+          font-size: 1.15rem;
+          text-decoration: none;
+          box-shadow: 0 4px 12px rgba(0, 198, 255, 0.4);
+          transition: 0.3s ease;
+        "
+        onmouseover="
+          this.style.transform = 'scale(1.06)';
+          this.style.boxShadow = '0 6px 18px rgba(0,198,255,0.6)';
+        "
+        onmouseout="
+          this.style.transform = 'scale(1)';
+          this.style.boxShadow = '0 4px 12px rgba(0,198,255,0.4)';
+        "
+      >
+        <i class="fa-solid fa-book-open"></i>
+        <span>Acessar Plataforma CEJA</span>
       </a>
     </div>
 
-    <div class="hamburger" id="hamburger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    </div>
+    <header>
+      <nav>
+        <div class="logo">
+          <a href="https://wa.me/552126226012" target="_blank">
+            <img src="imgsite/minha.jpg" class="logo-img" alt="logo" />
+          </a>
+        </div>
 
-    <ul class="nav-list" id="nav-list">
-      <li><a href="#"><i class="fa-solid fa-house"></i> Início</a></li>
+        <div class="hamburger" id="hamburger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
 
-      <li class="submenu">
-        <a href="#"><i class="fa-solid fa-school"></i> Ensino Médio <i class="fa-solid fa-chevron-down"></i></a>
-       
-        <!-- MENU ENSINO MÉDIO -->
-
-        <ul class="submenu-list">
-          <li><a href="artesmed.html"><i class="fa-solid fa-palette"></i> Artes</a></li>
-          <li><a href="biologia.html"><i class="fa-solid fa-dna"></i> Biologia</a></li>
-          <li><a href="edfisicamed.html"><i class="fa-solid fa-dumbbell"></i> Educação Física</a></li>
-          <li><a href="fisica.html"><i class="fa-solid fa-atom"></i> Física</a></li>
-          <li><a href="filosofia.html"><i class="fa-solid fa-brain"></i> Filosofia</a></li>
-          <li><a href="geomed.html"><i class="fa-solid fa-globe"></i> Geografia</a></li>
-          <li><a href="histmed.html"><i class="fa-solid fa-book"></i> História</a></li>
-          <li><a href="ingmed.html"><i class="fa-solid fa-language"></i> Inglês</a></li>
-          <li><a href="matmed.html"><i class="fa-solid fa-calculator"></i> Matemática</a></li>
-          <li><a href="portmed.html"><i class="fa-solid fa-book"></i> Português</a></li>
-          <li><a href="quimica.html"><i class="fa-solid fa-flask"></i> Química</a></li>
-          <li><a href="sociologia.html"><i class="fa-solid fa-users"></i> Sociologia</a></li>
-        </ul>
-      </li>
-         
-        <!-- MENU ENSINO FUNDAMENTAL -->
-
-      <li class="submenu">
-        <a href="#"><i class="fa-solid fa-book-open"></i> Ensino Fundamental <i class="fa-solid fa-chevron-down"></i></a>
-     <ul class="submenu-list">
-          <li><a href="enfundamental/artes-ef.html"><i class="fa-solid fa-palette"></i> Artes</a></li>
-          <li><a href="enfundamental/ciencias.html"><i class="fa-solid fa-flask"></i> Ciências</a></li>
-          <li><a href="enfundamental/ed.fund.html"><i class="fa-solid fa-dumbbell"></i> Educação Física</a></li>
-          <li><a href="enfundamental/geo.fund.html"><i class="fa-solid fa-globe"></i> Geografia</a></li>
-          <li><a href="enfundamental/hist-ef.html"><i class="fa-solid fa-book"></i> História</a></li>
+        <ul class="nav-list" id="nav-list">
+          <li>
+            <a href="#"><i class="fa-solid fa-house"></i> Início</a>
           </li>
-          <li><a href="/enfundamental/ing-ef.html"><i class="fa-solid fa-language"></i> Inglês</a></li>
-          <li><a href="/enfundamental/mat-ef.html"><i class="fa-solid fa-calculator"></i> Matemática</a></li>
-          <li><a href="/enfundamental/por-ef.html"><i class="fa-solid fa-book"></i> Português</a></li>
-       </ul>
-        
-      <li><a href="#"><i class="fa-solid fa-envelope"></i> Contato</a></li>
-    </ul>
-  </nav>
-</header>
-<!-- TESTANDO O  -->
-<section class="hero">
-  <h1>EDUCAÇÃO NO SEU TEMPO, DO SEU JEITO! 📱✨</h1>
-  <p>Agora funciona perfeitamente em qualquer celular.</p>
-  
-</section>
 
-<button id="toggleHorarioBtn" class="btn-horarios">
-  <i class="fa-solid fa-calendar-days"></i>
-  <span id="btnText">Ver Horários dos Professores</span>
-</button>
+          <li class="submenu">
+            <a href="#"
+              ><i class="fa-solid fa-school"></i> Ensino Médio
+              <i class="fa-solid fa-chevron-down"></i
+            ></a>
 
-<div class="filtros">
-  <input type="text" id="buscaInput" placeholder="Pesquisar professor ou disciplina…">
-  <select id="filtroDisciplina">
-    <option value="">Todas as disciplinas</option>
-  </select>
-</div>
+            <!-- MENU ENSINO MÉDIO -->
 
-<div id="quadroHorarios" class="horario-container" style="display:none">
-  <h2>Horários dos Professores</h2>
-  <div id="cards-horarios" class="cards-horarios"></div>
-</div>
+            <ul class="submenu-list">
+              <li>
+                <a href="artesmed.html"
+                  ><i class="fa-solid fa-palette"></i> Artes</a
+                >
+              </li>
+              <li>
+                <a href="biologia.html"
+                  ><i class="fa-solid fa-dna"></i> Biologia</a
+                >
+              </li>
+              <li>
+                <a href="edfisicamed.html"
+                  ><i class="fa-solid fa-dumbbell"></i> Educação Física</a
+                >
+              </li>
+              <li>
+                <a href="fisica.html"
+                  ><i class="fa-solid fa-atom"></i> Física</a
+                >
+              </li>
+              <li>
+                <a href="filosofia.html"
+                  ><i class="fa-solid fa-brain"></i> Filosofia</a
+                >
+              </li>
+              <li>
+                <a href="geomed.html"
+                  ><i class="fa-solid fa-globe"></i> Geografia</a
+                >
+              </li>
+              <li>
+                <a href="histmed.html"
+                  ><i class="fa-solid fa-book"></i> História</a
+                >
+              </li>
+              <li>
+                <a href="ingmed.html"
+                  ><i class="fa-solid fa-language"></i> Inglês</a
+                >
+              </li>
+              <li>
+                <a href="matmed.html"
+                  ><i class="fa-solid fa-calculator"></i> Matemática</a
+                >
+              </li>
+              <li>
+                <a href="portmed.html"
+                  ><i class="fa-solid fa-book"></i> Português</a
+                >
+              </li>
+              <li>
+                <a href="quimica.html"
+                  ><i class="fa-solid fa-flask"></i> Química</a
+                >
+              </li>
+              <li>
+                <a href="sociologia.html"
+                  ><i class="fa-solid fa-users"></i> Sociologia</a
+                >
+              </li>
+            </ul>
+          </li>
 
-<!-- NETFLIX STYLE APOSTILAS SECTION -->
-<div class="netflix-container">
-  <!-- ENSINO MÉDIO -->
-  <div class="netflix-section">
-    <h2 class="netflix-section-title">
-      <i class="fa-solid fa-book"></i> Ensino Médio
-    </h2>
-    <div class="netflix-scroll-container" id="scroll-medio">
-      <div class="netflix-card" data-link="artesmed.html">
-        <div class="netflix-card-image">🎨</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Artes</div>
-          <div class="netflix-card-desc">Explore a criatividade</div>
+          <!-- MENU ENSINO FUNDAMENTAL -->
+
+          <li class="submenu">
+            <a href="#"
+              ><i class="fa-solid fa-book-open"></i> Ensino Fundamental
+              <i class="fa-solid fa-chevron-down"></i
+            ></a>
+            <ul class="submenu-list">
+              <li>
+                <a href="enfundamental/artes-ef.html"
+                  ><i class="fa-solid fa-palette"></i> Artes</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/ciencias.html"
+                  ><i class="fa-solid fa-flask"></i> Ciências</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/ed.fund.html"
+                  ><i class="fa-solid fa-dumbbell"></i> Educação Física</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/geo.fund.html"
+                  ><i class="fa-solid fa-globe"></i> Geografia</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/hist-ef.html"
+                  ><i class="fa-solid fa-book"></i> História</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/ing-ef.html"
+                  ><i class="fa-solid fa-language"></i> Inglês</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/mat-ef.html"
+                  ><i class="fa-solid fa-calculator"></i> Matemática</a
+                >
+              </li>
+              <li>
+                <a href="enfundamental/por-ef.html"
+                  ><i class="fa-solid fa-book"></i> Português</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#"><i class="fa-solid fa-envelope"></i> Contato</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- TESTANDO O  -->
+    <section class="hero">
+      <h1>EDUCAÇÃO NO SEU TEMPO, DO SEU JEITO! 📱✨</h1>
+      <p>Agora funciona perfeitamente em qualquer celular.</p>
+    </section>
+
+    <button id="toggleHorarioBtn" class="btn-horarios">
+      <i class="fa-solid fa-calendar-days"></i>
+      <span id="btnText">Ver Horários dos Professores</span>
+    </button>
+
+    <div class="filtros">
+      <input
+        type="text"
+        id="buscaInput"
+        placeholder="Pesquisar professor ou disciplina…"
+      />
+      <select id="filtroDisciplina">
+        <option value="">Todas as disciplinas</option>
+      </select>
+    </div>
+
+    <div id="quadroHorarios" class="horario-container" style="display: none">
+      <h2>Horários dos Professores</h2>
+      <div id="cards-horarios" class="cards-horarios"></div>
+    </div>
+
+    <!-- NETFLIX STYLE APOSTILAS SECTION -->
+    <div class="netflix-container">
+      <!-- ENSINO MÉDIO -->
+      <div class="netflix-section">
+        <h2 class="netflix-section-title">
+          <i class="fa-solid fa-book"></i> Ensino Médio
+        </h2>
+        <div class="netflix-scroll-container" id="scroll-medio">
+          <div class="netflix-card" data-link="artesmed.html">
+            <div class="netflix-card-image">🎨</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Artes</div>
+              <div class="netflix-card-desc">Explore a criatividade</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="biologia.html">
+            <div class="netflix-card-image">🧬</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Biologia</div>
+              <div class="netflix-card-desc">Vida e evolução</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="edfisicamed.html">
+            <div class="netflix-card-image">⚽</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Educação Física</div>
+              <div class="netflix-card-desc">Movimento e saúde</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="fisica.html">
+            <div class="netflix-card-image">⚛️</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Física</div>
+              <div class="netflix-card-desc">Leis da natureza</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="filosofia.html">
+            <div class="netflix-card-image">🧠</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Filosofia</div>
+              <div class="netflix-card-desc">Pensamento crítico</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="geomed.html">
+            <div class="netflix-card-image">🌍</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Geografia</div>
+              <div class="netflix-card-desc">Mundo e paisagem</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="histmed.html">
+            <div class="netflix-card-image">📚</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">História</div>
+              <div class="netflix-card-desc">Passado e memória</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="ingmed.html">
+            <div class="netflix-card-image">🌐</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Inglês</div>
+              <div class="netflix-card-desc">Idiomas do mundo</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="matmed.html">
+            <div class="netflix-card-image">🔢</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Matemática</div>
+              <div class="netflix-card-desc">Números e lógica</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="portmed.html">
+            <div class="netflix-card-image">📝</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Português</div>
+              <div class="netflix-card-desc">Linguagem e expressão</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="quimica.html">
+            <div class="netflix-card-image">🧪</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Química</div>
+              <div class="netflix-card-desc">Elementos e reações</div>
+            </div>
+          </div>
+
+          <div class="netflix-card" data-link="sociologia.html">
+            <div class="netflix-card-image">👥</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Sociologia</div>
+              <div class="netflix-card-desc">Sociedade e cultura</div>
+            </div>
+          </div>
         </div>
+        <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
 
-      <div class="netflix-card" data-link="biologia.html">
-        <div class="netflix-card-image">🧬</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Biologia</div>
-          <div class="netflix-card-desc">Vida e evolução</div>
-        </div>
-      </div>
+      <!-- ENSINO FUNDAMENTAL -->
+      <div class="netflix-section">
+        <h2 class="netflix-section-title">
+          <i class="fa-solid fa-graduation-cap"></i> Ensino Fundamental
+        </h2>
+        <div class="netflix-scroll-container" id="scroll-fundamental">
+          <div class="netflix-card" data-link="enfundamental/artes-ef.html">
+            <div class="netflix-card-image">🎨</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Artes</div>
+              <div class="netflix-card-desc">Criatividade infantil</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="edfisicamed.html">
-        <div class="netflix-card-image">⚽</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Educação Física</div>
-          <div class="netflix-card-desc">Movimento e saúde</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/ciencias.html">
+            <div class="netflix-card-image">🔬</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Ciências</div>
+              <div class="netflix-card-desc">Descobertas naturais</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="fisica.html">
-        <div class="netflix-card-image">⚛️</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Física</div>
-          <div class="netflix-card-desc">Leis da natureza</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/ed.fund.html">
+            <div class="netflix-card-image">🏃</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Educação Física</div>
+              <div class="netflix-card-desc">Esporte e movimento</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="filosofia.html">
-        <div class="netflix-card-image">🧠</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Filosofia</div>
-          <div class="netflix-card-desc">Pensamento crítico</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/geo.fund.html">
+            <div class="netflix-card-image">🗺️</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Geografia</div>
+              <div class="netflix-card-desc">Lugares e mapas</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="geomed.html">
-        <div class="netflix-card-image">🌍</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Geografia</div>
-          <div class="netflix-card-desc">Mundo e paisagem</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/hist-ef.html">
+            <div class="netflix-card-image">🏛️</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">História</div>
+              <div class="netflix-card-desc">Histórias do passado</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="histmed.html">
-        <div class="netflix-card-image">📚</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">História</div>
-          <div class="netflix-card-desc">Passado e memória</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/ing-ef.html">
+            <div class="netflix-card-image">🗣️</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Inglês</div>
+              <div class="netflix-card-desc">Primeiros passos</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="ingmed.html">
-        <div class="netflix-card-image">🌐</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Inglês</div>
-          <div class="netflix-card-desc">Idiomas do mundo</div>
-        </div>
-      </div>
+          <div class="netflix-card" data-link="enfundamental/mat-ef.html">
+            <div class="netflix-card-image">🧮</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Matemática</div>
+              <div class="netflix-card-desc">Cálculo e formas</div>
+            </div>
+          </div>
 
-      <div class="netflix-card" data-link="matmed.html">
-        <div class="netflix-card-image">🔢</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Matemática</div>
-          <div class="netflix-card-desc">Números e lógica</div>
+          <div class="netflix-card" data-link="enfundamental/por-ef.html">
+            <div class="netflix-card-image">✏️</div>
+            <div class="netflix-card-overlay">
+              <span class="netflix-card-icon">📖</span>
+              <div class="netflix-card-title">Português</div>
+              <div class="netflix-card-desc">Leitura e escrita</div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="netflix-card" data-link="portmed.html">
-        <div class="netflix-card-image">📝</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Português</div>
-          <div class="netflix-card-desc">Linguagem e expressão</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="quimica.html">
-        <div class="netflix-card-image">🧪</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Química</div>
-          <div class="netflix-card-desc">Elementos e reações</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="sociologia.html">
-        <div class="netflix-card-image">👥</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Sociologia</div>
-          <div class="netflix-card-desc">Sociedade e cultura</div>
-        </div>
+        <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
     </div>
-    <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
-  </div>
 
-  <!-- ENSINO FUNDAMENTAL -->
-  <div class="netflix-section">
-    <h2 class="netflix-section-title">
-      <i class="fa-solid fa-graduation-cap"></i> Ensino Fundamental
-    </h2>
-    <div class="netflix-scroll-container" id="scroll-fundamental">
-      <div class="netflix-card" data-link="enfundamental/artes-ef.html">
-        <div class="netflix-card-image">🎨</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Artes</div>
-          <div class="netflix-card-desc">Criatividade infantil</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/ciencias.html">
-        <div class="netflix-card-image">🔬</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Ciências</div>
-          <div class="netflix-card-desc">Descobertas naturais</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/ed.fund.html">
-        <div class="netflix-card-image">🏃</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Educação Física</div>
-          <div class="netflix-card-desc">Esporte e movimento</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/geo.fund.html">
-        <div class="netflix-card-image">🗺️</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Geografia</div>
-          <div class="netflix-card-desc">Lugares e mapas</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/hist-ef.html">
-        <div class="netflix-card-image">🏛️</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">História</div>
-          <div class="netflix-card-desc">Histórias do passado</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/ing-ef.html">
-        <div class="netflix-card-image">🗣️</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Inglês</div>
-          <div class="netflix-card-desc">Primeiros passos</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/mat-ef.html">
-        <div class="netflix-card-image">🧮</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Matemática</div>
-          <div class="netflix-card-desc">Cálculo e formas</div>
-        </div>
-      </div>
-
-      <div class="netflix-card" data-link="enfundamental/por-ef.html">
-        <div class="netflix-card-image">✏️</div>
-        <div class="netflix-card-overlay">
-          <span class="netflix-card-icon">📖</span>
-          <div class="netflix-card-title">Português</div>
-          <div class="netflix-card-desc">Leitura e escrita</div>
-        </div>
-      </div>
+    <div class="whatsapp-button">
+      <a
+        href="https://api.whatsapp.com/send?phone=552126229012&text=Olá,%20preciso%20de%20ajuda"
+        target="_blank"
+      >
+        <img src="imgsite/whatsapp.png" alt="whatsapp" />
+      </a>
     </div>
-    <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
-  </div>
-</div>
 
-<div class="whatsapp-button">
-  <a href="https://api.whatsapp.com/send?phone=552126229012&text=Olá,%20preciso%20de%20ajuda" target="_blank">
-    <img src="imgsite/whatsapp.png" alt="whatsapp">
-  </a>
-</div>
+    <script>
+      // ======= NETFLIX CARDS INTERACTION =======
+      document.querySelectorAll(".netflix-card").forEach((card) => {
+        card.addEventListener("click", function () {
+          const link = this.getAttribute("data-link");
+          if (link) window.location.href = link;
+        });
+      });
 
-<script>
-// ======= NETFLIX CARDS INTERACTION =======
-document.querySelectorAll('.netflix-card').forEach(card => {
-  card.addEventListener('click', function() {
-    const link = this.getAttribute('data-link');
-    if(link) window.location.href = link;
-  });
-});
+      // Scroll função para os botões
+      function scrollSection(event, direction) {
+        const button = event.target.closest(".scroll-nav-btn");
+        const section = button.closest(".netflix-section");
+        const container = section.querySelector(".netflix-scroll-container");
 
-// Scroll função para os botões
-function scrollSection(event, direction) {
-  const button = event.target.closest('.scroll-nav-btn');
-  const section = button.closest('.netflix-section');
-  const container = section.querySelector('.netflix-scroll-container');
-  
-  const scrollAmount = 300;
-  container.scrollBy({
-    left: direction * scrollAmount,
-    behavior: 'smooth'
-  });
-}
+        const scrollAmount = 300;
+        container.scrollBy({
+          left: direction * scrollAmount,
+          behavior: "smooth",
+        });
+      }
 
-// Keyboard navigation
-document.querySelectorAll('.netflix-scroll-container').forEach(container => {
-  container.addEventListener('keydown', function(e) {
-    if(e.key === 'ArrowLeft') {
-      this.scrollBy({ left: -300, behavior: 'smooth' });
-    } else if(e.key === 'ArrowRight') {
-      this.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  });
-});
-</script>
+      // Keyboard navigation
+      document
+        .querySelectorAll(".netflix-scroll-container")
+        .forEach((container) => {
+          container.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowLeft") {
+              this.scrollBy({ left: -300, behavior: "smooth" });
+            } else if (e.key === "ArrowRight") {
+              this.scrollBy({ left: 300, behavior: "smooth" });
+            }
+          });
+        });
+    </script>
 
-<script>
-// dados horários
+    <script>
+      // dados horários
 
-const horarios = [
+      const horarios = [
+        //ARTES
 
-//ARTES 
+        {
+          disciplina: "Artes",
+          professor: "Profa. Kézia",
+          dia: "Segunda",
+          horario: "14:40h - 20:30h",
+        },
+        {
+          disciplina: "Artes",
+          professor: "Profa. Kézia",
+          dia: "Quarta",
+          horario: "09:30h - 13:50h",
+        },
 
-  {disciplina:"Artes", professor:"Profa. Kézia", dia:"Segunda", horario:"14:40h - 20:30h"},
-  {disciplina:"Artes", professor:"Profa. Kézia", dia:"Quarta", horario:"09:30h - 13:50h"},
+        //BIOLOGIA/CIÊNCIAS
 
-//BIOLOGIA/CIÊNCIAS
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Elson",
+          dia: "Segunda",
+          horario: "09:30h - 15:30h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Nelson",
+          dia: "Segunda",
+          horario: "13:50h - 20:30h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Nelson",
+          dia: "Terça",
+          horario: "09:30h - 12:10h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Profa. Tereza",
+          dia: "Terça",
+          horario: "09:30h - 14:40h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Roberto",
+          dia: "Quarta",
+          horario: "12:10h - 17:10h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Profa. Tereza",
+          dia: "Quarta",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Roberto",
+          dia: "Quinta",
+          horario: "12:10h - 17:10h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Elson",
+          dia: "Quinta",
+          horario: "09:30h - 13:50h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Profa. Tereza",
+          dia: "Sexta",
+          horario: "09:30h - 16:20h",
+        },
 
-  {disciplina:"Biologia/Ciências", professor:"Prof. Elson", dia:"Segunda", horario:"09:30h - 15:30h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Nelson", dia:"Segunda", horario:"13:50h - 20:30h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Nelson", dia:"Terça", horario:"09:30h - 12:10h"},
-  {disciplina:"Biologia/Ciências", professor:"Profa. Tereza", dia:"Terça", horario:"09:30h - 14:40h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Roberto", dia:"Quarta", horario:"12:10h - 17:10h"},
-<<<<<<< HEAD
-  {disciplina:"Biologia/Ciências", professor:"Profa. Tereza", dia:"Quarta", horario:"09:30h - 16:20h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Roberto", dia:"Quinta", horario:"12:10h - 17:10h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Elson", dia:"Quinta", horario:"09:30h - 13:50h"},
-  {disciplina:"Biologia/Ciências", professor:"Profa. Tereza", dia:"Sexta", horario:"09:30h - 16:20h"},
-=======
-  {disciplina:"Biologia/Ciências", professor:"Prof. Elson", dia:"Quinta", horario:"09:40h - 13:50h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Roberto", dia:"Quinta", horario:"13:00h - 17:10h"},
-  {disciplina:"Biologia/Ciências", professor:"Profa. Tereza", dia:"Sexta", horario:"09:40h - 14:40h"},
-  {disciplina:"Biologia/Ciências", professor:"Prof. Nelson", dia:"Sexta", horario:"16:20h - 17:10h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
- 
-//EDUCAÇÃO FÍSICA
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Elson",
+          dia: "Quinta",
+          horario: "09:40h - 13:50h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Roberto",
+          dia: "Quinta",
+          horario: "13:00h - 17:10h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Profa. Tereza",
+          dia: "Sexta",
+          horario: "09:40h - 14:40h",
+        },
+        {
+          disciplina: "Biologia/Ciências",
+          professor: "Prof. Nelson",
+          dia: "Sexta",
+          horario: "16:20h - 17:10h",
+        },
 
-  {disciplina:"Educação Física", professor:"Prof. Flávio", dia:"Segunda", horario:"17:10h - 20:30h"},
-  {disciplina:"Educação Física", professor:"Prof. Flávio", dia:"Terça", horario:"15:30h - 18:50h"},
-  {disciplina:"Educação Física", professor:"Prof. Flávio", dia:"Quinta", horario:"10:30h - 13:50h"},
+        //EDUCAÇÃO FÍSICA
 
-  //ESPANHOL
+        {
+          disciplina: "Educação Física",
+          professor: "Prof. Flávio",
+          dia: "Segunda",
+          horario: "17:10h - 20:30h",
+        },
+        {
+          disciplina: "Educação Física",
+          professor: "Prof. Flávio",
+          dia: "Terça",
+          horario: "15:30h - 18:50h",
+        },
+        {
+          disciplina: "Educação Física",
+          professor: "Prof. Flávio",
+          dia: "Quinta",
+          horario: "10:30h - 13:50h",
+        },
 
-  {disciplina:"Espanhol", professor:"Profa.Isabelle", dia:"Quinta", horario:"13:00h - 20:30h"},
-<<<<<<< HEAD
-  {disciplina:"Espanhol", professor:"Profa. Isabelle", dia:"Sexta", horario:"09:30h - 10:30h"},
-  
-//FÍSICA  
+        //ESPANHOL
 
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Terça", horario:"12:10h - 18:00h"},
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Quarta", horario:"09:30h - 16:20h"},
-  {disciplina:"Física", professor:"Prof. Cândido", dia:"Quinta", horario:"13:50h - 14:40h"},
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Sexta", horario:"13:00h - 16:20h"},
-=======
-  {disciplina:"Espanhol", professor:"Profa. Isabelle", dia:"Sexta", horario:"09:40h - 12:10h"},
-  
-//FÍSICA  
+        {
+          disciplina: "Espanhol",
+          professor: "Profa.Isabelle",
+          dia: "Quinta",
+          horario: "13:00h - 20:30h",
+        },
+        {
+          disciplina: "Espanhol",
+          professor: "Profa. Isabelle",
+          dia: "Sexta",
+          horario: "09:30h - 10:30h",
+        },
 
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Segunda", horario:"12:10h - 18:00h"},
-  {disciplina:"Física", professor:"Prof. Cândido", dia:"Terça", horario:"09:40h - 14:40h"},
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Quarta", horario:"13:50h - 20:30h"},
-  {disciplina:"Física", professor:"Prof. Cândido", dia:"Quinta", horario:"09:40h - 14:40h"},
-  {disciplina:"Física", professor:"Prof. Cristiano", dia:"Sexta", horario:"13:00h - 17:10h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
+        //FÍSICA
 
-//FILOOSOFIA
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Terça",
+          horario: "12:10h - 18:00h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Quarta",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cândido",
+          dia: "Quinta",
+          horario: "13:50h - 14:40h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Sexta",
+          horario: "13:00h - 16:20h",
+        },
+        {
+          disciplina: "Espanhol",
+          professor: "Profa. Isabelle",
+          dia: "Sexta",
+          horario: "09:40h - 12:10h",
+        },
 
-  {disciplina:"Filosofia", professor:"Prof. Leandro", dia:"Segunda", horario:"14:40h - 18:50h"},
-<<<<<<< HEAD
-  {disciplina:"Filosofia", professor:"Prof. Leandro", dia:"Terça", horario:"09:30h - 15:30h"},
-=======
-  {disciplina:"Filosofia", professor:"Prof. Leandro", dia:"Terça", horario:"09:40h - 16:20h"},
-  {disciplina:"Filosofia", professor:"Prof. José Augusto", dia:"Quarta", horario:"17:10h - 20:30h"},
-  {disciplina:"Filosofia", professor:"Prof. Leandro", dia:"Quinta", horario:"09:40h - 15:30h"},
-  {disciplina:"Filosofia", professor:"Prof. José Augusto", dia:"Quinta", horario:"13:50h - 18:00h"},
-  {disciplina:"Filosofia", professor:"Prof. José Augusto", dia:"SextA", horario:"11:20h - 17:10h"},
+        //FÍSICA
 
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
-  
-//GEOGRAFIA
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Segunda",
+          horario: "12:10h - 18:00h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cândido",
+          dia: "Terça",
+          horario: "09:40h - 14:40h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Quarta",
+          horario: "13:50h - 20:30h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cândido",
+          dia: "Quinta",
+          horario: "09:40h - 14:40h",
+        },
+        {
+          disciplina: "Física",
+          professor: "Prof. Cristiano",
+          dia: "Sexta",
+          horario: "13:00h - 17:10h",
+        },
 
-  {disciplina:"Geografia", professor:"Prof. Elson", dia:"Terça", horario:"09:30h - 14:40h"},
-  {disciplina:"Geografia", professor:"Profa. Sheila", dia:"Terça", horario:"15:30h - 20:30h"},
-<<<<<<< HEAD
-  {disciplina:"Geografia", professor:"Prof. Elson", dia:"Quarta", horario:"09:30h - 14:40h"},
-  {disciplina:"Geografia", professor:"Profa. Rachel", dia:"Quinta", horario:"09:30h - 14:40h"},
-  {disciplina:"Geografia", professor:"Profa. Sheila", dia:"Quinta", horario:"19:40h - 20:30h"},
-  {disciplina:"Geografia", professor:"Profa. Rachel", dia:"Sexta", horario:"09:30h - 14:40h"},
+        //FILOOSOFIA
 
-//HISTÓRIA
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. Leandro",
+          dia: "Segunda",
+          horario: "14:40h - 18:50h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. Leandro",
+          dia: "Terça",
+          horario: "09:30h - 15:30h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. Leandro",
+          dia: "Terça",
+          horario: "09:40h - 16:20h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. José Augusto",
+          dia: "Quarta",
+          horario: "17:10h - 20:30h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. Leandro",
+          dia: "Quinta",
+          horario: "09:40h - 15:30h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. José Augusto",
+          dia: "Quinta",
+          horario: "13:50h - 18:00h",
+        },
+        {
+          disciplina: "Filosofia",
+          professor: "Prof. José Augusto",
+          dia: "SextA",
+          horario: "11:20h - 17:10h",
+        },
 
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Segunda", horario:"09:30h - 11:20h"},
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Terça", horario:"09:30h - 12:10h"},
-  {disciplina:"História", professor:"Prof. Rogério", dia:"Quarta", horario:"10:30h - 13:50h"},
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Quinta", horario:"09:30h - 12:10h"},
-=======
-  {disciplina:"Geografia", professor:"Prof. Elson", dia:"Quarta", horario:"09:40h - 14:40h"},
-  {disciplina:"Geografia", professor:"Profa. Rachel", dia:"Quinta", horario:"09:40h - 14:40h"},
-  {disciplina:"Geografia", professor:"Profa. Sheila", dia:"Quinta", horario:"15:30h - 20:30h"},
-  {disciplina:"Geografia", professor:"Profa. Rachel", dia:"Sexta", horario:"09:40h - 14:40h"},
+        //GEOGRAFIA
 
-//HISTÓRIA
+        {
+          disciplina: "Geografia",
+          professor: "Prof. Elson",
+          dia: "Terça",
+          horario: "09:30h - 14:40h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Sheila",
+          dia: "Terça",
+          horario: "15:30h - 20:30h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Prof. Elson",
+          dia: "Quarta",
+          horario: "09:30h - 14:40h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Rachel",
+          dia: "Quinta",
+          horario: "09:30h - 14:40h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Sheila",
+          dia: "Quinta",
+          horario: "19:40h - 20:30h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Rachel",
+          dia: "Sexta",
+          horario: "09:30h - 14:40h",
+        },
 
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Segunda", horario:"09:40h - 11:20h"},
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Terça", horario:"09:40h - 13:50h"},
-  {disciplina:"História", professor:"Prof. Emílio", dia:"Terça", horario:"18:50h - 20:30h"},
-  {disciplina:"História", professor:"Prof. Rogério", dia:"Quarta", horario:"10:30h - 13:50h"},
-  {disciplina:"História", professor:"Profa. Ivete", dia:"Quinta", horario:"09:40h - 13:00h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
-  {disciplina:"História", professor:"Prof. Emílio", dia:"Quinta", horario:"13:50h - 19:40h"},
-  {disciplina:"História", professor:"Prof. Rogério", dia:"Sexta", horario:"10:30h - 17:10h"},
+        //HISTÓRIA
 
-//INGLÊS
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Segunda",
+          horario: "09:30h - 11:20h",
+        },
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Terça",
+          horario: "09:30h - 12:10h",
+        },
+        {
+          disciplina: "História",
+          professor: "Prof. Rogério",
+          dia: "Quarta",
+          horario: "10:30h - 13:50h",
+        },
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Quinta",
+          horario: "09:30h - 12:10h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Prof. Elson",
+          dia: "Quarta",
+          horario: "09:40h - 14:40h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Rachel",
+          dia: "Quinta",
+          horario: "09:40h - 14:40h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Sheila",
+          dia: "Quinta",
+          horario: "15:30h - 20:30h",
+        },
+        {
+          disciplina: "Geografia",
+          professor: "Profa. Rachel",
+          dia: "Sexta",
+          horario: "09:40h - 14:40h",
+        },
 
-  {disciplina:"Inglês", professor:"Profa. Marcela", dia:"Segunda", horario:"13:00h - 16:20h"},
-<<<<<<< HEAD
-  {disciplina:"Inglês", professor:"Profa. Marcela", dia:"Terça", horario:"09:30h - 16:20h"},
-  {disciplina:"Inglês", professor:"Profa. Marcela", dia:"Quinta", horario:"09:30h - 16:20h"},
-  {disciplina:"Inglês", professor:"Profa. Ilca", dia:"Quinta", horario:"17:10h - 20:30h"},
-=======
-  {disciplina:"Inglês", professor:"Profa. Marcela", dia:"Terça", horario:"09:40h - 16:20h"},
-  {disciplina:"Inglês", professor:"Profa. Marcela", dia:"Quinta", horario:"09:40h - 16:20h"},
-  {disciplina:"Inglês", professor:"Profa. Ilca", dia:"Quinta", horario:"15:30h - 20:30h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
-  
-//MATEMÁTICA
+        //HISTÓRIA
 
-  {disciplina:"Matemática", professor:"Prof. Marcelo",dia:"Segunda",horario:"09:30h - 16:20h"},
-  {disciplina:"Matemática", professor:"Prof. Fernando",dia:"Segunda",horario:"16:20h - 20:30h"},
-  {disciplina:"Matemática", professor:"Profa. Gleicy",dia:"Terça",horario:"09:30h - 16:20h"}, 
-  {disciplina:"Matemática", professor:"Prof. Fernando",dia:"Terça",horario:"16:20h - 20:30h"},
-  {disciplina:"Matemática", professor:"Profa. Gleicy",dia:"Quarta",horario:"09:40h - 15:30h"},
-  {disciplina:"Matemática", professor:"Prof. Fernando",dia:"Quarta",horario:"16:20h - 20:30h"},
-<<<<<<< HEAD
-  {disciplina:"Matemática", professor:"Prof. Marcelo",dia:"Quinta",horario:"09:30h - 12:10h"},
-   {disciplina:"Matemática", professor:"Profa. Gleicy",dia:"Sexta",horario:"09:30h - 13:00h"},
-=======
-  {disciplina:"Matemática", professor:"Prof. Marcelo",dia:"Quarta",horario:"15:20h - 20:30h"},
-  {disciplina:"Matemática", professor:"Profa. Patrícia",dia:"Quinta",horario:"09:40h - 13:00h"},
-  {disciplina:"Matemática", professor:"Prof. Marcelo",dia:"Quinta",horario:"09:40h - 12:10h"},
-  {disciplina:"Matemática", professor:"Prof. Fernando",dia:"Quinta",horario:"16:20h - 20:30h"},
-  {disciplina:"Matemática", professor:"Profa. Gleicy",dia:"Sexta",horario:"09:40h - 17:10h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Segunda",
+          horario: "09:40h - 11:20h",
+        },
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Terça",
+          horario: "09:40h - 13:50h",
+        },
+        {
+          disciplina: "História",
+          professor: "Prof. Emílio",
+          dia: "Terça",
+          horario: "18:50h - 20:30h",
+        },
+        {
+          disciplina: "História",
+          professor: "Prof. Rogério",
+          dia: "Quarta",
+          horario: "10:30h - 13:50h",
+        },
+        {
+          disciplina: "História",
+          professor: "Profa. Ivete",
+          dia: "Quinta",
+          horario: "09:40h - 13:00h",
+        },
+        {
+          disciplina: "História",
+          professor: "Prof. Emílio",
+          dia: "Quinta",
+          horario: "13:50h - 19:40h",
+        },
+        {
+          disciplina: "História",
+          professor: "Prof. Rogério",
+          dia: "Sexta",
+          horario: "10:30h - 17:10h",
+        },
 
-//PORTUGUÊS
+        //INGLÊS
 
-  {disciplina:"Português", professor:"Profa. Cíntia",dia:"Segunda",horario:"09:30h - 14:40h"},
-  {disciplina:"Português", professor:"Profa. Geovania",dia:"Segunda",horario:"14:40h - 20:30h"},
-  {disciplina:"Português", professor:"Profa. Patrícia",dia:"terça",horario:"09:40h - 13:00h"},
-  {disciplina:"Português", professor:"Profa. Cíntia",dia:"Terça",horario:"13:00h - 17:10h"},
-  {disciplina:"Português", professor:"Profa. Marília",dia:"Terça",horario:"14:40h - 20:30h"},
-  {disciplina:"Português", professor:"Profa. Geovania",dia:"Quarta",horario:"09:30h - 13:50h"},
-  {disciplina:"Português", professor:"Profa. Marília",dia:"Quarta",horario:"13:50h - 18:00h"},
-  {disciplina:"Português", professor:"Profa. Patrícia",dia:"Quinta",horario:"09:40h - 11:20h"},
-  {disciplina:"Português", professor:"Profa. Cíntia",dia:"Quinta",horario:"13:00h - 20:30h"},
-  {disciplina:"Português", professor:"Profa. Cíntia",dia:"Sexta",horario:"09:40h - 16:20h"},
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Marcela",
+          dia: "Segunda",
+          horario: "13:00h - 16:20h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Marcela",
+          dia: "Terça",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Marcela",
+          dia: "Quinta",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Ilca",
+          dia: "Quinta",
+          horario: "17:10h - 20:30h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Marcela",
+          dia: "Terça",
+          horario: "09:40h - 16:20h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Marcela",
+          dia: "Quinta",
+          horario: "09:40h - 16:20h",
+        },
+        {
+          disciplina: "Inglês",
+          professor: "Profa. Ilca",
+          dia: "Quinta",
+          horario: "15:30h - 20:30h",
+        },
 
-//QUÍMICA
+        //MATEMÁTICA
 
-  {disciplina:"Química", professor:"Prof. Roberto",dia:"Terça", horario:"11:20h - 18:50h"},
-  {disciplina:"Química", professor:"Prof. Roberto",dia:"Quarta", horario:"10:30h - 12:10h"},
-  {disciplina:"Química", professor:"Prof. Davi",dia:"Quarta", horario:"14:40h - 20:30h"},
-  {disciplina:"Química", professor:"Prof. Roberto",dia:"Quinta", horario:"10:30h - 13:00h"},
-  {disciplina:"Química", professor:"Prof. Roberto",dia:"Sexta", horario:"09:30h - 13:00h"},
-  {disciplina:"Química", professor:"Prof. Davi",dia:"Sexta", horario:"13:30h - 17:10h"},
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Marcelo",
+          dia: "Segunda",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Fernando",
+          dia: "Segunda",
+          horario: "16:20h - 20:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Profa. Gleicy",
+          dia: "Terça",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Fernando",
+          dia: "Terça",
+          horario: "16:20h - 20:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Profa. Gleicy",
+          dia: "Quarta",
+          horario: "09:40h - 15:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Fernando",
+          dia: "Quarta",
+          horario: "16:20h - 20:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Marcelo",
+          dia: "Quinta",
+          horario: "09:30h - 12:10h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Profa. Gleicy",
+          dia: "Sexta",
+          horario: "09:30h - 13:00h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Marcelo",
+          dia: "Quarta",
+          horario: "15:20h - 20:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Profa. Patrícia",
+          dia: "Quinta",
+          horario: "09:40h - 13:00h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Marcelo",
+          dia: "Quinta",
+          horario: "09:40h - 12:10h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Prof. Fernando",
+          dia: "Quinta",
+          horario: "16:20h - 20:30h",
+        },
+        {
+          disciplina: "Matemática",
+          professor: "Profa. Gleicy",
+          dia: "Sexta",
+          horario: "09:40h - 17:10h",
+        },
 
-//SOCIOLOGIA 
+        //PORTUGUÊS
 
-<<<<<<< HEAD
-  {disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Segunda", horario:"09:30h - 16:20h"},
-  {disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Quarta",horario:"09:30h - 13:00h"},
+        {
+          disciplina: "Português",
+          professor: "Profa. Cíntia",
+          dia: "Segunda",
+          horario: "09:30h - 14:40h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Geovania",
+          dia: "Segunda",
+          horario: "14:40h - 20:30h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Patrícia",
+          dia: "terça",
+          horario: "09:40h - 13:00h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Cíntia",
+          dia: "Terça",
+          horario: "13:00h - 17:10h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Marília",
+          dia: "Terça",
+          horario: "14:40h - 20:30h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Geovania",
+          dia: "Quarta",
+          horario: "09:30h - 13:50h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Marília",
+          dia: "Quarta",
+          horario: "13:50h - 18:00h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Patrícia",
+          dia: "Quinta",
+          horario: "09:40h - 11:20h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Cíntia",
+          dia: "Quinta",
+          horario: "13:00h - 20:30h",
+        },
+        {
+          disciplina: "Português",
+          professor: "Profa. Cíntia",
+          dia: "Sexta",
+          horario: "09:40h - 16:20h",
+        },
 
-//COMPONENTE DE ÁREA 1 (CIÊNCIAS DA NATUREZA)
+        //QUÍMICA
 
-  {disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Elson", dia:"Quinta", horario:"09:30h - 13:50h"},
-  {disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"14:30h - 16:20h"},  
-=======
-  {disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Segunda", horario:"09:40h - 16:20h"},
-  {disciplina:"Sociologia", professor:"Prof. Evandro",dia:"Segunda", horario:"14:40h - 20:30h"},
-  {disciplina:"Sociologia", professor:"Prof. Evandro",dia:"Terça", horario:"09:40h - 13:50h"},
-  {disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Quarta",horario:"09:40h - 13:00h"},
+        {
+          disciplina: "Química",
+          professor: "Prof. Roberto",
+          dia: "Terça",
+          horario: "11:20h - 18:50h",
+        },
+        {
+          disciplina: "Química",
+          professor: "Prof. Roberto",
+          dia: "Quarta",
+          horario: "10:30h - 12:10h",
+        },
+        {
+          disciplina: "Química",
+          professor: "Prof. Davi",
+          dia: "Quarta",
+          horario: "14:40h - 20:30h",
+        },
+        {
+          disciplina: "Química",
+          professor: "Prof. Roberto",
+          dia: "Quinta",
+          horario: "10:30h - 13:00h",
+        },
+        {
+          disciplina: "Química",
+          professor: "Prof. Roberto",
+          dia: "Sexta",
+          horario: "09:30h - 13:00h",
+        },
+        {
+          disciplina: "Química",
+          professor: "Prof. Davi",
+          dia: "Sexta",
+          horario: "13:30h - 17:10h",
+        },
 
-//COMPONENTE DE ÁREA 1 (CIÊNCIAS DA NATUREZA)
+        //SOCIOLOGIA
 
-//{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Elson", dia:"Quinta", horario:"09:40h - 13:50h"},
-//{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"14:30h - 16:20h"},  
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
+        {
+          disciplina: "Sociologia",
+          professor: "Prof. Hellington",
+          dia: "Segunda",
+          horario: "09:30h - 16:20h",
+        },
+        {
+          disciplina: "Sociologia",
+          professor: "Prof. Hellington",
+          dia: "Quarta",
+          horario: "09:30h - 13:00h",
+        },
 
-//COMPONENTE DE ÁREA 2 (CIÊNCIAS DA NATUREZA)
+        //COMPONENTE DE ÁREA 1 (CIÊNCIAS DA NATUREZA)
 
-// {disciplina:"Componente de Área 2 (Ciências da natureza)", professor:"Profa. Nelson", dia:"Terça", horario:"14:40h - 20:30h"},
-//{disciplina:"Componente de Área 2 (Ciências da natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"16:20h - 17:10h"},
+        //{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Elson", dia:"Quinta", horario:"09:30h - 13:50h"},
+        //{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"14:30h - 16:20h"},
+        // {disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Segunda", horario:"09:40h - 16:20h"},
+        //{disciplina:"Sociologia", professor:"Prof. Evandro",dia:"Segunda", horario:"14:40h - 20:30h"},
+        //{disciplina:"Sociologia", professor:"Prof. Evandro",dia:"Terça", horario:"09:40h - 13:50h"},
+        //{disciplina:"Sociologia", professor:"Prof. Hellington",dia:"Quarta",horario:"09:40h - 13:00h"},
 
-// COMPONENTE DE ÁREA 1 (MATEMÁTICA)
+        //COMPONENTE DE ÁREA 1 (CIÊNCIAS DA NATUREZA)
 
-//{disciplina:"Componente de Área 1 (Matemática)", professor:"Prof. Marcelo", dia:"Quarta", horario:"17:10h - 20:30h"},
-//{disciplina:"Componente de Área 1 (Matemática)", professor:"Prof. Marcelo", dia:"quinta", horario:"13:00h - 16:20h"},
+        //{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Elson", dia:"Quinta", horario:"09:40h - 13:50h"},
+        //{disciplina:"Componente de Área 1 (Ciências da Natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"14:30h - 16:20h"},
 
-// COMPONENTE DE ÁREA 2 (MATEMÁTICA)
+        //COMPONENTE DE ÁREA 2 (CIÊNCIAS DA NATUREZA)
 
-<<<<<<< HEAD
-  {disciplina:"Componente de Área 2 (Matemática)", professor:"Profa. Gleyce", dia:"Quarta", horario:"09:30h - 12:10h"},
-  {disciplina:"Componente de Área 2 (Matemática)", professor:"Prof. Fernando", dia:"Quinta", horario:"13:20h - 17:10h"},
- 
-// COMPONENTE DE ÁREA 1 (LINGUAGENS)
+        // {disciplina:"Componente de Área 2 (Ciências da natureza)", professor:"Profa. Nelson", dia:"Terça", horario:"14:40h - 20:30h"},
+        //{disciplina:"Componente de Área 2 (Ciências da natureza)", professor:"Prof. Nelson", dia:"Sexta", horario:"16:20h - 17:10h"},
 
-  {disciplina:"Componente de Área 1 (Linguagens)", professor:"Profa. Patrícia", dia:"Sexta", horario:"09:30h - 16:20h"},
+        // COMPONENTE DE ÁREA 1 (MATEMÁTICA)
 
-// COMPONENTE DE ÁREA 2 (LINGUAGENS)  
+        //{disciplina:"Componente de Área 1 (Matemática)", professor:"Prof. Marcelo", dia:"Quarta", horario:"17:10h - 20:30h"},
+        //{disciplina:"Componente de Área 1 (Matemática)", professor:"Prof. Marcelo", dia:"quinta", horario:"13:00h - 16:20h"},
 
-  {disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quarta", horario:"09:30h - 13:00h"},
-  {disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quinta", horario:"09:30h - 11:20h"}, 
-  {disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Ilca", dia:"Quinta", horario:"15:30h - 17:10h"},
-=======
-//{disciplina:"Componente de Área 2 (Matemática)", professor:"Profa. Gleyce", dia:"Quarta", horario:"09:40h - 12:10h"},
-//{disciplina:"Componente de Área 2 (Matemática)", professor:"Prof. Fernando", dia:"Quinta", horario:"13:20h - 17:10h"},
- 
-// COMPONENTE DE ÁREA 1 (LINGUAGENS)
+        // COMPONENTE DE ÁREA 2 (MATEMÁTICA)
 
-//{disciplina:"Componente de Área 1 (Linguagens)", professor:"Profa. Patrícia", dia:"Sexta", horario:"09:40h - 16:20h"},
+        // {disciplina:"Componente de Área 2 (Matemática)", professor:"Profa. Gleyce", dia:"Quarta", horario:"09:30h - 12:10h"},
+        // {disciplina:"Componente de Área 2 (Matemática)", professor:"Prof. Fernando", dia:"Quinta", horario:"13:20h - 17:10h"},
 
-// COMPONENTE DE ÁREA 2 (LINGUAGENS)  
+        // COMPONENTE DE ÁREA 1 (LINGUAGENS)
 
-//{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quarta", horario:"09:40h - 13:00h"},
-//{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quinta", horario:"09:40h - 11:20h"}, 
-//{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Ilca", dia:"Quinta", horario:"15:30h - 17:10h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
+        // {disciplina:"Componente de Área 1 (Linguagens)", professor:"Profa. Patrícia", dia:"Sexta", horario:"09:30h - 16:20h"},
 
-//COMPONENTER DE ÁREA 1 (HUMANAS)
+        // COMPONENTE DE ÁREA 2 (LINGUAGENS)
 
-//{disciplina:"Componente de Área 1 (Humanas)", professor:"Prof. José Augusto", dia:"Terça", horario:"11:20h - 12:10h"},
-//{disciplina:"Componente de Área 1 (Humanas)", professor:"Prof. Emílio", dia:"Terça", horario:"13:40h - 15:30h"},
+        //{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quarta", horario:"09:30h - 13:00h"},
+        // {disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quinta", horario:"09:30h - 11:20h"},
+        // {disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Ilca", dia:"Quinta", horario:"15:30h - 17:10h"},
 
-//COMPONENTER DE ÁREA 2 (HUMANAS) 
+        //{disciplina:"Componente de Área 2 (Matemática)", professor:"Profa. Gleyce", dia:"Quarta", horario:"09:40h - 12:10h"},
+        //{disciplina:"Componente de Área 2 (Matemática)", professor:"Prof. Fernando", dia:"Quinta", horario:"13:20h - 17:10h"},
 
-<<<<<<< HEAD
-  {disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Leandro", dia:"Terça", horario:"15:30h - 16:20h"},
-  {disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Rogério", dia:"Quinta", horario:"09:30h - 15:30h"},
-=======
-//{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Leandro", dia:"Terça", horario:"15:30h - 16:20h"},
-//{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Rogério", dia:"Quinta", horario:"09:40h - 15:30h"},
->>>>>>> fbf90e94ef5e087111d91092b6c2ef1637f5d146
-  
-];
+        // COMPONENTE DE ÁREA 1 (LINGUAGENS)
 
-// DOM elementos
-const containerCards = document.getElementById('cards-horarios');
-const filtroDisciplina = document.getElementById('filtroDisciplina');
-const buscaInput = document.getElementById('buscaInput');
-const quadro = document.getElementById('quadroHorarios');
-const btn = document.getElementById('toggleHorarioBtn');
-const btnText = document.getElementById('btnText');
+        //{disciplina:"Componente de Área 1 (Linguagens)", professor:"Profa. Patrícia", dia:"Sexta", horario:"09:40h - 16:20h"},
 
-function removerAcentos(str){
-  if(!str) return "";
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
-}
+        // COMPONENTE DE ÁREA 2 (LINGUAGENS)
 
-function renderCards(lista){
-  if(!lista || lista.length === 0){
-    containerCards.innerHTML = `<p style="text-align:center;opacity:.8">Nenhum horário encontrado.</p>`;
-    return;
-  }
-  containerCards.innerHTML = lista.map(h=>`
+        //{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quarta", horario:"09:40h - 13:00h"},
+        //{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Patrícia", dia:"Quinta", horario:"09:40h - 11:20h"},
+        //{disciplina:"Componente de Área 2 (Linguagens)", professor:"Profa. Ilca", dia:"Quinta", horario:"15:30h - 17:10h"},
+
+        //COMPONENTER DE ÁREA 1 (HUMANAS)
+
+        //{disciplina:"Componente de Área 1 (Humanas)", professor:"Prof. José Augusto", dia:"Terça", horario:"11:20h - 12:10h"},
+        //{disciplina:"Componente de Área 1 (Humanas)", professor:"Prof. Emílio", dia:"Terça", horario:"13:40h - 15:30h"},
+
+        //COMPONENTER DE ÁREA 2 (HUMANAS)
+
+        //{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Leandro", dia:"Terça", horario:"15:30h - 16:20h"},
+        //{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Rogério", dia:"Quinta", horario:"09:30h - 15:30h"},
+
+        //{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Leandro", dia:"Terça", horario:"15:30h - 16:20h"},
+        //{disciplina:"Componente de Área 2 (Humanas)", professor:"Prof. Rogério", dia:"Quinta", horario:"09:40h - 15:30h"},
+      ];
+
+      // DOM elementos
+      const containerCards = document.getElementById("cards-horarios");
+      const filtroDisciplina = document.getElementById("filtroDisciplina");
+      const buscaInput = document.getElementById("buscaInput");
+      const quadro = document.getElementById("quadroHorarios");
+      const btn = document.getElementById("toggleHorarioBtn");
+      const btnText = document.getElementById("btnText");
+
+      function removerAcentos(str) {
+        if (!str) return "";
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+      }
+
+      function renderCards(lista) {
+        if (!lista || lista.length === 0) {
+          containerCards.innerHTML = `<p style="text-align:center;opacity:.8">Nenhum horário encontrado.</p>`;
+          return;
+        }
+        containerCards.innerHTML = lista
+          .map(
+            (h) => `
     <div class="card-horario" data-disciplina="${h.disciplina}" data-professor="${h.professor}">
       <p><span>Disciplina:</span> ${h.disciplina}</p>
       <p><span>Professor(a):</span> ${h.professor}</p>
       <p><span>Dia:</span> ${h.dia}</p>
       <p><span>Horário:</span> ${h.horario}</p>
     </div>
-  `).join('');
-}
+  `,
+          )
+          .join("");
+      }
 
-function popularSelectDisciplina(){
-  const disciplinas=[...new Set(horarios.map(h=>h.disciplina))];
-  filtroDisciplina.innerHTML=`<option value="">Todas as disciplinas</option>`+
-    disciplinas.map(d=>`<option value="${d}">${d}</option>`).join('');
-}
+      function popularSelectDisciplina() {
+        const disciplinas = [...new Set(horarios.map((h) => h.disciplina))];
+        filtroDisciplina.innerHTML =
+          `<option value="">Todas as disciplinas</option>` +
+          disciplinas.map((d) => `<option value="${d}">${d}</option>`).join("");
+      }
 
-function filtrar(){
-  if(quadro.style.display==='none'||quadro.style.display===''){
-    quadro.style.display='block';
-    btnText.textContent='Ocultar Horários dos Professores';
-  }
-  const texto=removerAcentos(buscaInput.value.trim());
-  const disciplinaSelecionada=filtroDisciplina.value;
-  const filtrados=horarios.filter(h=>{
-    const discNorm=removerAcentos(h.disciplina);
-    const profNorm=removerAcentos(h.professor);
-    const matchTexto=texto===""||discNorm.includes(texto)||profNorm.includes(texto);
-    const matchDisc=disciplinaSelecionada===""||h.disciplina===disciplinaSelecionada;
-    return matchTexto&&matchDisc;
-  });
-  renderCards(filtrados);
-}
+      function filtrar() {
+        if (quadro.style.display === "none" || quadro.style.display === "") {
+          quadro.style.display = "block";
+          btnText.textContent = "Ocultar Horários dos Professores";
+        }
+        const texto = removerAcentos(buscaInput.value.trim());
+        const disciplinaSelecionada = filtroDisciplina.value;
+        const filtrados = horarios.filter((h) => {
+          const discNorm = removerAcentos(h.disciplina);
+          const profNorm = removerAcentos(h.professor);
+          const matchTexto =
+            texto === "" ||
+            discNorm.includes(texto) ||
+            profNorm.includes(texto);
+          const matchDisc =
+            disciplinaSelecionada === "" ||
+            h.disciplina === disciplinaSelecionada;
+          return matchTexto && matchDisc;
+        });
+        renderCards(filtrados);
+      }
 
-popularSelectDisciplina();
-renderCards(horarios);
+      popularSelectDisciplina();
+      renderCards(horarios);
 
-buscaInput.addEventListener('input',filtrar);
-filtroDisciplina.addEventListener('change',filtrar);
+      buscaInput.addEventListener("input", filtrar);
+      filtroDisciplina.addEventListener("change", filtrar);
 
-btn.addEventListener('click',()=>{
-  if(quadro.style.display==='block'){
-    quadro.style.display='none';
-    btnText.textContent='Ver Horários dos Professores';
-  }else{
-    quadro.style.display='block';
-    btnText.textContent='Ocultar Horários dos Professores';
-  }
-});
-
-// hamburger + mobile
-const hamburger = document.getElementById("hamburger");
-const navList = document.getElementById("nav-list");
-hamburger.addEventListener("click",()=>{
-  hamburger.classList.toggle("active");
-  navList.classList.toggle("show");
-});
-
-// submenus mobile com slide e setinha
-document.querySelectorAll(".submenu > a").forEach(link=>{
-  link.addEventListener("click",function(e){
-    if(window.innerWidth<=768){
-      e.preventDefault();
-      const submenu=this.nextElementSibling;
-      this.parentElement.classList.toggle("open");
-      document.querySelectorAll(".submenu-list").forEach(s=>{
-        if(s!==submenu) s.style.display="none";
-        if(s!==submenu) s.parentElement.classList.remove("open");
+      btn.addEventListener("click", () => {
+        if (quadro.style.display === "block") {
+          quadro.style.display = "none";
+          btnText.textContent = "Ver Horários dos Professores";
+        } else {
+          quadro.style.display = "block";
+          btnText.textContent = "Ocultar Horários dos Professores";
+        }
       });
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
-    }
-  });
-});
 
-// ======= Modal aviso (horário de provas) =======
-(function(){
-  const LS_KEY = 'aviso_horario_ignorar';
-  const overlay = document.getElementById('modal-aviso-overlay');
-  const dialog = document.getElementById('modal-aviso');
-  const btnClose = document.getElementById('modal-aviso-close');
-  const btnOk = document.getElementById('modal-aviso-ok');
-  const btnNever = document.getElementById('modal-aviso-never');
+      // hamburger + mobile
+      const hamburger = document.getElementById("hamburger");
+      const navList = document.getElementById("nav-list");
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navList.classList.toggle("show");
+      });
 
-  function openModal(){
-    if(overlay){
-      overlay.style.display = 'flex';
-      if(dialog) dialog.focus();
-    }
-  }
-  function closeModal(){
-    if(overlay) overlay.style.display = 'none';
-  }
+      // submenus mobile com slide e setinha
+      document.querySelectorAll(".submenu > a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            const submenu = this.nextElementSibling;
+            this.parentElement.classList.toggle("open");
+            document.querySelectorAll(".submenu-list").forEach((s) => {
+              if (s !== submenu) s.style.display = "none";
+              if (s !== submenu) s.parentElement.classList.remove("open");
+            });
+            submenu.style.display =
+              submenu.style.display === "block" ? "none" : "block";
+          }
+        });
+      });
 
-  document.addEventListener('DOMContentLoaded', function(){
-    try{
-      const ignored = localStorage.getItem(LS_KEY);
-      if(!ignored) openModal();
-    }catch(e){ openModal(); }
+      // ======= Modal aviso (horário de provas) =======
+      (function () {
+        const LS_KEY = "aviso_horario_ignorar";
+        const overlay = document.getElementById("modal-aviso-overlay");
+        const dialog = document.getElementById("modal-aviso");
+        const btnClose = document.getElementById("modal-aviso-close");
+        const btnOk = document.getElementById("modal-aviso-ok");
+        const btnNever = document.getElementById("modal-aviso-never");
 
-    if(btnClose) btnClose.addEventListener('click', closeModal);
-    if(btnOk) btnOk.addEventListener('click', closeModal);
-    if(btnNever) btnNever.addEventListener('click', function(){
-      try{ localStorage.setItem(LS_KEY, '1'); }catch(e){}
-      closeModal();
-    });
+        function openModal() {
+          if (overlay) {
+            overlay.style.display = "flex";
+            if (dialog) dialog.focus();
+          }
+        }
+        function closeModal() {
+          if (overlay) overlay.style.display = "none";
+        }
 
-    if(overlay) overlay.addEventListener('click', function(e){
-      if(e.target === overlay) closeModal();
-    });
-    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
-  });
-})();
-</script>
-<footer class="footer">
-    <p>Desenvolvido com <i class="fas fa-computer"></i> por <span>W&ll</span></p>
+        document.addEventListener("DOMContentLoaded", function () {
+          try {
+            const ignored = localStorage.getItem(LS_KEY);
+            if (!ignored) openModal();
+          } catch (e) {
+            openModal();
+          }
 
-    <div class="social-icons">
+          if (btnClose) btnClose.addEventListener("click", closeModal);
+          if (btnOk) btnOk.addEventListener("click", closeModal);
+          if (btnNever)
+            btnNever.addEventListener("click", function () {
+              try {
+                localStorage.setItem(LS_KEY, "1");
+              } catch (e) {}
+              closeModal();
+            });
+
+          if (overlay)
+            overlay.addEventListener("click", function (e) {
+              if (e.target === overlay) closeModal();
+            });
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeModal();
+          });
+        });
+      })();
+    </script>
+    <footer class="footer">
+      <p>
+        Desenvolvido com <i class="fas fa-computer"></i> por <span>W&ll</span>
+      </p>
+
+      <div class="social-icons">
         <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    </div>
+      </div>
 
-    <button id="show-aviso-btn" class="btn-aviso-footer" aria-label="Mostrar aviso novamente"><i class="fa-solid fa-bell"></i>Mostrar aviso</button>
+      <button
+        id="show-aviso-btn"
+        class="btn-aviso-footer"
+        aria-label="Mostrar aviso novamente"
+      >
+        <i class="fa-solid fa-bell"></i>Mostrar aviso
+      </button>
 
-    <p class="copyright">© 2025 — Todos os direitos reservados.</p>
-</footer>
+      <p class="copyright">© 2025 — Todos os direitos reservados.</p>
+    </footer>
 
-<script>
-// botão do rodapé — limpa preferência e reexibe o modal
-document.addEventListener('DOMContentLoaded', function(){
-  const showBtn = document.getElementById('show-aviso-btn');
-  if(!showBtn) return;
-  showBtn.addEventListener('click', function(){
-    try{ localStorage.removeItem('aviso_horario_ignorar'); }catch(e){}
-    const overlay = document.getElementById('modal-aviso-overlay');
-    const dialog = document.getElementById('modal-aviso');
-    if(overlay){ overlay.style.display = 'flex'; }
-    if(dialog){ dialog.focus(); }
-  });
-});
-</script>
-
-</body>
+    <script>
+      // botão do rodapé — limpa preferência e reexibe o modal
+      document.addEventListener("DOMContentLoaded", function () {
+        const showBtn = document.getElementById("show-aviso-btn");
+        if (!showBtn) return;
+        showBtn.addEventListener("click", function () {
+          try {
+            localStorage.removeItem("aviso_horario_ignorar");
+          } catch (e) {}
+          const overlay = document.getElementById("modal-aviso-overlay");
+          const dialog = document.getElementById("modal-aviso");
+          if (overlay) {
+            overlay.style.display = "flex";
+          }
+          if (dialog) {
+            dialog.focus();
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
