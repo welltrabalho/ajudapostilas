@@ -1,326 +1,429 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geografia - Ensino Fundamental</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <style>
-        /* ======== ESTILOS GERAIS ======== */
-        * { box-sizing: border-box; }
-        
-        body {
-            font-family: "Poppins", sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            background-image: url("../imgsite/fundo-da-placa-mae.jpg");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #fff;
-        }
+      /* ======== ESTILOS GERAIS ======== */
+      * {
+        box-sizing: border-box;
+      }
 
-        .header-section {
-            padding: 30px 20px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 234, 255, 0.2);
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        background-image: url("../imgsite/fundo-da-placa-mae.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #fff;
+      }
 
+      .header-section {
+        padding: 30px 20px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 234, 255, 0.2);
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 15px 0;
+        color: #fff;
+        text-shadow: 0 2px 10px rgba(0, 234, 255, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .page-title i {
+        color: #00eaff;
+        font-size: 2.8rem;
+      }
+
+      .page-desc {
+        opacity: 0.85;
+        font-size: 1rem;
+        margin: 10px 0 0;
+      }
+
+      /* ======== BOTÃO VOLTAR ======== */
+      .back-button {
+        margin: 20px auto;
+        padding: 12px 28px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        background: linear-gradient(45deg, #007bff, #00c6ff);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(0, 198, 255, 0.3);
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: fit-content;
+      }
+
+      .back-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 198, 255, 0.5);
+      }
+
+      .back-button i {
+        font-size: 1.1rem;
+      }
+
+      /* ======== NETFLIX CONTAINER ======== */
+      .netflix-container {
+        max-width: 1400px;
+        margin: 40px auto;
+        padding: 0 20px 40px;
+        position: relative;
+      }
+
+      .netflix-scroll-container {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding: 10px 0;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        position: relative;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-thumb {
+        background: rgba(0, 234, 255, 0.5);
+        border-radius: 10px;
+      }
+
+      .netflix-scroll-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 234, 255, 0.8);
+      }
+
+      .netflix-card {
+        flex: 0 0 240px;
+        aspect-ratio: 3/4;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 50, 100, 0.8),
+          rgba(0, 20, 50, 0.9)
+        );
+        border: 1px solid rgba(0, 234, 255, 0.2);
+        scroll-snap-align: start;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        text-decoration: none;
+      }
+
+      .netflix-card:hover {
+        transform: scale(1.08) translateY(-10px);
+        border-color: rgba(0, 234, 255, 0.6);
+        box-shadow: 0 12px 30px rgba(0, 234, 255, 0.3);
+      }
+
+      .netflix-card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .netflix-card:hover .netflix-card-image {
+        transform: scale(1.05);
+      }
+
+      .netflix-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 50%,
+          rgba(0, 0, 0, 0.9) 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+
+      .netflix-card:hover .netflix-card-overlay {
+        opacity: 1;
+      }
+
+      .netflix-card-title {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1rem;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+
+      /* Botões de navegação */
+      .scroll-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 234, 255, 0.8);
+        color: #000;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s;
+        font-size: 1.4rem;
+        z-index: 10;
+      }
+
+      .netflix-container:hover .scroll-nav-btn {
+        opacity: 0.7;
+      }
+
+      .scroll-nav-btn:hover {
+        opacity: 1 !important;
+        background: rgba(0, 234, 255, 1);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .scroll-nav-btn.left {
+        left: 5px;
+      }
+
+      .scroll-nav-btn.right {
+        right: 5px;
+      }
+
+      /* ======== RESPONSIVE ======== */
+      @media (max-width: 768px) {
         .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 15px 0;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0, 234, 255, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .page-title i {
-            color: #00eaff;
-            font-size: 2.8rem;
-        }
-
-        .page-desc {
-            opacity: 0.85;
-            font-size: 1rem;
-            margin: 10px 0 0;
-        }
-
-        /* ======== BOTÃO VOLTAR ======== */
-        .back-button {
-            margin: 20px auto;
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: white;
-            background: linear-gradient(45deg, #007BFF, #00C6FF);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 198, 255, 0.3);
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: fit-content;
-        }
-
-        .back-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 198, 255, 0.5);
-        }
-
-        .back-button i {
-            font-size: 1.1rem;
-        }
-
-        /* ======== NETFLIX CONTAINER ======== */
-        .netflix-container {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px 40px;
-            position: relative;
-        }
-
-        .netflix-scroll-container {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 10px 0;
-            scroll-behavior: smooth;
-            scroll-snap-type: x mandatory;
-            position: relative;
-        }
-
-        .netflix-scroll-container::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .netflix-scroll-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .netflix-scroll-container::-webkit-scrollbar-thumb {
-            background: rgba(0, 234, 255, 0.5);
-            border-radius: 10px;
-        }
-
-        .netflix-scroll-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 234, 255, 0.8);
+          font-size: 1.8rem;
         }
 
         .netflix-card {
-            flex: 0 0 240px;
-            aspect-ratio: 3/4;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            background: linear-gradient(135deg, rgba(0, 50, 100, 0.8), rgba(0, 20, 50, 0.9));
-            border: 1px solid rgba(0, 234, 255, 0.2);
-            scroll-snap-align: start;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            text-decoration: none;
+          flex: 0 0 160px;
         }
 
-        .netflix-card:hover {
-            transform: scale(1.08) translateY(-10px);
-            border-color: rgba(0, 234, 255, 0.6);
-            box-shadow: 0 12px 30px rgba(0, 234, 255, 0.3);
-        }
-
-        .netflix-card-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
-        }
-
-        .netflix-card:hover .netflix-card-image {
-            transform: scale(1.05);
-        }
-
-        .netflix-card-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.9) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .netflix-card:hover .netflix-card-overlay {
-            opacity: 1;
-        }
-
-        .netflix-card-title {
-            color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Botões de navegação */
         .scroll-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 234, 255, 0.8);
-            color: #000;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s;
-            font-size: 1.4rem;
-            z-index: 10;
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
         }
+      }
+      /* Override local para garantir interação no carrossel */
+      .netflix-scroll-container {
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 1;
+      }
 
-        .netflix-container:hover .scroll-nav-btn {
-            opacity: 0.7;
-        }
+      .netflix-section .scroll-nav-btn[style*="opacity: 0"] {
+        pointer-events: none;
+      }
 
-        .scroll-nav-btn:hover {
-            opacity: 1 !important;
-            background: rgba(0, 234, 255, 1);
-            transform: translateY(-50%) scale(1.1);
-        }
+      .scroll-nav-btn {
+        pointer-events: auto;
+      }
 
-        .scroll-nav-btn.left {
-            left: 5px;
-        }
-
-        .scroll-nav-btn.right {
-            right: 5px;
-        }
-
-        /* ======== RESPONSIVE ======== */
-        @media(max-width: 768px) {
-            .page-title {
-                font-size: 1.8rem;
-            }
-
-            .netflix-card {
-                flex: 0 0 160px;
-            }
-
-            .scroll-nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-        }
+      .netflix-card,
+      .netflix-card * {
+        pointer-events: auto !important;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header-section">
-        <h1 class="page-title">
-            <i class="fa-solid fa-globe"></i> Geografia - Ensino Fundamental
-        </h1>
-        <p class="page-desc">Explore apostilas de Geografia e aprofunde seus conhecimentos</p>
+      <h1 class="page-title">
+        <i class="fa-solid fa-globe"></i> Geografia - Ensino Fundamental
+      </h1>
+      <p class="page-desc">
+        Explore apostilas de Geografia e aprofunde seus conhecimentos
+      </p>
     </div>
 
     <div class="netflix-container">
-        <div class="netflix-scroll-container" id="scroll-geografia">
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo1fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo1fun.jpg" alt="Geografia 1" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 1</p>
-                </div>
-            </a>
+      <div class="netflix-scroll-container" id="scroll-geografia">
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo1fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo1fun.jpg"
+            alt="Geografia 1"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 1</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo2fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo2fun.jpg" alt="Geografia 2" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 2</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo2fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo2fun.jpg"
+            alt="Geografia 2"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 2</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo3fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo3fun.jpg" alt="Geografia 3" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 3</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo3fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo3fun.jpg"
+            alt="Geografia 3"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 3</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo4fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo4fun.jpg" alt="Geografia 4" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 4</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo4fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo4fun.jpg"
+            alt="Geografia 4"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 4</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo5fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo5fun.jpg" alt="Geografia 5" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 5</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo5fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo5fun.jpg"
+            alt="Geografia 5"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 5</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo6fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo6fun.jpg" alt="Geografia 6" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 6</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo6fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo6fun.jpg"
+            alt="Geografia 6"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 6</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo7fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo7fun.jpg" alt="Geografia 7" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 7</p>
-                </div>
-            </a>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo7fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo7fun.jpg"
+            alt="Geografia 7"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 7</p>
+          </div>
+        </a>
 
-            <a href="../indexapostilas/livrofundamental/geo-ef/geo8fun.pdf" target="_blank" class="netflix-card">
-                <img src="../imgsite/imgfundamental/geo.fund/geo8fun.jpg" alt="Geografia 8" class="netflix-card-image">
-                <div class="netflix-card-overlay">
-                    <p class="netflix-card-title">Geografia 8</p>
-                </div>
-            </a>
-        </div>
+        <a
+          href="../indexapostilas/livrofundamental/geo-ef/geo8fun.pdf"
+          target="_blank"
+          class="netflix-card"
+        >
+          <img
+            src="../imgsite/imgfundamental/geo.fund/geo8fun.jpg"
+            alt="Geografia 8"
+            class="netflix-card-image"
+          />
+          <div class="netflix-card-overlay">
+            <p class="netflix-card-title">Geografia 8</p>
+          </div>
+        </a>
+      </div>
 
-        <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
+      <button class="scroll-nav-btn left" onclick="scrollSection(event, -1)">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="scroll-nav-btn right" onclick="scrollSection(event, 1)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
 
-    <div style="text-align: center; padding: 20px;">
-        <button class="back-button" onclick="window.location.href='../index.html'">
-            <i class="fa-solid fa-arrow-left"></i> Voltar à Página Principal
-        </button>
+    <div style="text-align: center; padding: 20px">
+      <button
+        class="back-button"
+        onclick="window.location.href = '../index.html'"
+      >
+        <i class="fa-solid fa-arrow-left"></i> Voltar à Página Principal
+      </button>
     </div>
 
     <script>
-        function scrollSection(event, direction) {
-            const button = event.target.closest('.scroll-nav-btn');
-            const container = document.getElementById('scroll-geografia');
-            
-            const scrollAmount = 300;
-            container.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-        }
+      function scrollSection(event, direction) {
+        const button = event.target.closest(".scroll-nav-btn");
+        const container = document.getElementById("scroll-geografia");
+
+        const scrollAmount = 300;
+        container.scrollBy({
+          left: direction * scrollAmount,
+          behavior: "smooth",
+        });
+      }
     </script>
-</body>
+  </body>
 </html>

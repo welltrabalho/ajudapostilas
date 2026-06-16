@@ -1,15 +1,54 @@
 /* ---------- RESET básico ---------- */
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0a0a0a,#1b1b1b); color:#f5f5f5; min-height:100vh; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #0a0a0a, #1b1b1b);
+  color: #f5f5f5;
+  min-height: 100vh;
+}
 
 /* header/nav base */
-.header { width:100%; position:fixed; top:0; left:0; background: rgba(151,9,9,0.82); backdrop-filter: blur(8px); z-index:1000;}
-.nav { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; }
-.logo { color:#fff; text-decoration:none; font-weight:700; font-size:1.4rem; }
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(151, 9, 9, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+}
+.nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.logo {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
 
 /* nav list desktop */
-.nav-list { list-style:none; display:flex; gap:1.5rem; align-items:center; }
-.nav-list a { color:#f5f5f5; text-decoration:none; padding:6px 0; position:relative; }
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.nav-list a {
+  color: #f5f5f5;
+  text-decoration: none;
+  padding: 6px 0;
+  position: relative;
+}
 
 /* ---------- HAMBURGER (3 linhas) ---------- */
 .hamburger {
@@ -25,19 +64,28 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
 
 /* linhas */
 .hamburger .line {
-  display:block;
+  display: block;
   width: 100%;
   height: 3px;
   background: #fff;
   border-radius: 3px;
   position: absolute;
   left: 0;
-  transition: transform .33s cubic-bezier(.22,1,.36,1), opacity .25s ease, top .33s ease;
+  transition:
+    transform 0.33s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    top 0.33s ease;
 }
 
-.hamburger .line1 { top: 8px; }
-.hamburger .line2 { top: 16px; }
-.hamburger .line3 { top: 24px; }
+.hamburger .line1 {
+  top: 8px;
+}
+.hamburger .line2 {
+  top: 16px;
+}
+.hamburger .line3 {
+  top: 24px;
+}
 
 /* HAMBURGER ABERTO (X) */
 .hamburger.open .line1 {
@@ -54,7 +102,9 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
 }
 
 /* ---------- MENU 3D / SUBMENUS (DESKTOP) ---------- */
-.submenu { position: relative; }
+.submenu {
+  position: relative;
+}
 
 /* principal */
 .submenu-list {
@@ -62,16 +112,18 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
   top: calc(100% + 8px);
   left: 0;
   min-width: 240px;
-  list-style:none;
-  padding:10px 0;
-  border-radius:12px;
-  background: rgba(20,20,20,0.84);
+  list-style: none;
+  padding: 10px 0;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.84);
   backdrop-filter: blur(8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-  transform: translateY(18px) scale(.96);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(18px) scale(0.96);
   opacity: 0;
   pointer-events: none;
-  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
 }
 
 /* mostrar no hover desktop */
@@ -86,16 +138,18 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
     position: absolute;
     top: 0;
     left: 100%;
-    min-width:200px;
-    padding:8px 0;
-    border-radius:12px;
-    background: rgba(20,20,20,0.84);
+    min-width: 200px;
+    padding: 8px 0;
+    border-radius: 12px;
+    background: rgba(20, 20, 20, 0.84);
     backdrop-filter: blur(8px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-    transform: translateX(18px) scale(.96);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    transform: translateX(18px) scale(0.96);
     opacity: 0;
     pointer-events: none;
-    transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.25s ease;
   }
 
   .submenu-inner:hover .submenu-inner-list {
@@ -106,25 +160,32 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
 }
 
 /* links dentro dos submenus */
-.submenu-list a, .submenu-inner-list a {
-  display:block;
-  padding:10px 18px;
-  color:#eee;
-  text-decoration:none;
-  font-weight:500;
-  transition: transform .22s ease, background .22s ease, box-shadow .22s ease;
+.submenu-list a,
+.submenu-inner-list a {
+  display: block;
+  padding: 10px 18px;
+  color: #eee;
+  text-decoration: none;
+  font-weight: 500;
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
-.submenu-list a:hover, .submenu-inner-list a:hover {
+.submenu-list a:hover,
+.submenu-inner-list a:hover {
   transform: translateX(6px) translateY(-3px);
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.36);
-  border-radius:8px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.36);
+  border-radius: 8px;
 }
 
 /* ---------- MOBILE STYLES ---------- */
 @media (max-width: 768px) {
-  .hamburger { display: block; }
+  .hamburger {
+    display: block;
+  }
 
   .nav-list {
     position: fixed;
@@ -135,9 +196,12 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
     flex-direction: column;
     gap: 0;
     padding: 1rem;
-    background: rgba(15,15,15,0.96);
+    background: rgba(15, 15, 15, 0.96);
     backdrop-filter: blur(8px);
-    transition: transform .45s cubic-bezier(.22,1,.36,1), right .45s ease, opacity .35s ease;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      right 0.45s ease,
+      opacity 0.35s ease;
     transform: translateX(100%);
     opacity: 0;
     z-index: 1050;
@@ -149,12 +213,18 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
     opacity: 1;
   }
 
-  .nav-list li { width: 100%; }
+  .nav-list li {
+    width: 100%;
+  }
 
-  .nav-list a { padding: 14px 12px; display:block; }
+  .nav-list a {
+    padding: 14px 12px;
+    display: block;
+  }
 
   /* mobile: submenus são empilhados e fechados por padrão */
-  .submenu-list, .submenu-inner-list {
+  .submenu-list,
+  .submenu-inner-list {
     position: relative;
     display: none;
     opacity: 1;
@@ -165,15 +235,20 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
   }
 
   /* classe .open controlada pelo JS */
-  .submenu.open > .submenu-list { display: block; margin-bottom: 8px; }
-  .submenu-inner.open > .submenu-inner-list { display: block; }
+  .submenu.open > .submenu-list {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .submenu-inner.open > .submenu-inner-list {
+    display: block;
+  }
 
   /* seta indicativa */
   .submenu > .submenu-toggle::after,
   .submenu-inner > .submenu-inner-toggle::after {
     content: "▸";
     float: right;
-    transition: transform .25s ease;
+    transition: transform 0.25s ease;
   }
   .submenu.open > .submenu-toggle::after,
   .submenu-inner.open > .submenu-inner-toggle::after {
@@ -181,24 +256,63 @@ body { font-family: "Poppins", sans-serif; background: linear-gradient(135deg,#0
   }
 
   .submenu-list li {
-  opacity: 0;
-  transform: translateX(-10px);
-  animation: submenuItem 0.3s forwards ease;
-}
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: submenuItem 0.3s forwards ease;
+  }
 
-.submenu-list li:nth-child(1) { animation-delay: 0.05s; }
-.submenu-list li:nth-child(2) { animation-delay: 0.10s; }
-.submenu-list li:nth-child(3) { animation-delay: 0.15s; }
-.submenu-list li:nth-child(4) { animation-delay: 0.20s; }
-.submenu-list li:nth-child(5) { animation-delay: 0.25s; }
-.submenu-list li:nth-child(6) { animation-delay: 0.30s; }
-.submenu-list li:nth-child(7) { animation-delay: 0.35s; }
+  .submenu-list li:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .submenu-list li:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .submenu-list li:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+  .submenu-list li:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+  .submenu-list li:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+  .submenu-list li:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+  .submenu-list li:nth-child(7) {
+    animation-delay: 0.35s;
+  }
 
-@keyframes submenuItem {
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  @keyframes submenuItem {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }
 
+/* Fixes globais para carrossel Netflix-style */
+.netflix-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Garantir que botões não capturem toque quando invisíveis */
+.netflix-section .scroll-nav-btn[style*="opacity: 0"] {
+  pointer-events: none;
+}
+
+/* Botões continuam clicáveis quando visíveis */
+.scroll-nav-btn {
+  pointer-events: auto;
+}
+
+/* Se algum ancestral aplicar pointer-events:none globalmente, force interação
+   nos cards (último recurso) */
+.netflix-card,
+.netflix-card * {
+  pointer-events: auto !important;
 }

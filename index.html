@@ -653,7 +653,7 @@
         align-items: center;
         justify-content: center;
         background: rgba(0, 0, 0, 0.6);
-        z-index: 2500;
+        z-index: 5000;
       }
       #modal-aviso {
         background: rgba(255, 255, 255, 0.8);
@@ -752,6 +752,42 @@
         border-radius: 8px;
         font-weight: 800;
         margin-top: 4px;
+      }
+
+      /* Override para garantir interação nos carrosseis (ensino médio/fund.) */
+      .netflix-scroll-container {
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 1000;
+      }
+
+      .netflix-section .scroll-nav-btn[style*="opacity: 0"] {
+        pointer-events: none;
+      }
+
+      .scroll-nav-btn {
+        pointer-events: auto;
+      }
+
+      .netflix-card,
+      .netflix-card * {
+        pointer-events: auto !important;
+      }
+
+      /* Garantir ambos carrosseis acima de elementos normais, mas abaixo do modal */
+      #scroll-medio,
+      #scroll-fundamental {
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 2000 !important;
+      }
+
+      /* Botões de navegação devem ficar acima dos carrosseis, mas abaixo do modal */
+      .scroll-nav-btn {
+        z-index: 2001 !important;
+        pointer-events: auto !important;
       }
     </style>
   </head>
