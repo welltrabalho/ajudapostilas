@@ -187,6 +187,10 @@
         font-size: 1.25rem;
         animation: pulse 1.4s infinite;
       }
+      .btn-horarios:disabled {
+        cursor: not-allowed;
+        opacity: 0.72;
+      }
 
       /* pulse */
       @keyframes pulse {
@@ -216,6 +220,11 @@
         background: rgba(20, 20, 20, 0.6);
         color: #fff;
         min-width: 200px;
+      }
+      .filtros input:disabled,
+      .filtros select:disabled {
+        cursor: not-allowed;
+        opacity: 0.72;
       }
       @media (max-width: 768px) {
         .filtros {
@@ -809,11 +818,11 @@
 
         <div style="line-height: 1.7; font-size: 0.98rem">
           <p style="margin: 10px 0; color: #d32f2f; font-weight: 600">
-            <strong>🏗️ Horário da Secretaria:</strong><br />
+            <strong>🏗️ Horário da Secretaria no recesso escolar :</strong><br />
             Matrículas e atendimentos diversos:<br />
             <span style="color: #007bff; font-size: 1.05rem">
-              • Segunda e quinta: 09:40 às 17:00h<br />
-              • Sexta-feira: 09:40h às 16:00h
+              • terça e quinta: 10:00h às 17:00h<br />
+              <!-- • Sexta-feira: 09:40h às 16:00h -->
             </span>
           </p>
 
@@ -823,30 +832,35 @@
 
           <ul style="margin: 8px 0 12px 20px; padding: 0; list-style: none">
             <li style="margin: 6px 0">
-              <strong style="color: #007bff"
+             <!-- <strong style="color: #007bff"
                 >⏳ Inscrições em andamento até o final de novembro</strong
+              > -->
+              <strong style="color: #007bff"
+                >⏳ Inscrições para novas matrículas apartir de fevereiro</strong
               >
             </li>
-            <li style="margin: 6px 0">
-              📊 Confira suas notas e pegue sua apostila na
-              <a
-                href="https://cejarj.cecierj.edu.br/ava"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="color: #007bff; font-weight: 600; text-decoration: none"
-              >
-                PLATAFORMA
-              </a>
-            </li>
+            <!--
+              <li style="margin: 6px 0">
+                📊 Confira suas notas e pegue sua apostila na
+                <a
+                  href="https://cejarj.cecierj.edu.br/ava"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="color: #007bff; font-weight: 600; text-decoration: none"
+                >
+                  PLATAFORMA
+                </a>
+              </li>
+            -->
           </ul>
 
-          <p class="aviso-provas">
+         <!--<p class="aviso-provas">
             <strong class="label">⏰ Atenção:</strong>
             <span class="descricao">Provas sendo realizadas de</span>
             <strong class="horario"
               >segunda a quinta — 09:30 às 19:30; sexta — 09:30 às 16:10</strong
             >
-          </p>
+          </p> -->
 
           <p style="margin: 10px 0; opacity: 0.85; font-size: 0.94rem">
             <b>SEJAM TODO BEM VINDOS AO CEJA!</b>
@@ -1048,9 +1062,15 @@
       <p>Agora funciona perfeitamente em qualquer celular.</p>
     </section>
 
-    <button id="toggleHorarioBtn" class="btn-horarios">
+    <button
+      id="toggleHorarioBtn"
+      class="btn-horarios"
+      type="button"
+      disabled
+      aria-disabled="true"
+    >
       <i class="fa-solid fa-calendar-days"></i>
-      <span id="btnText">Ver Horários dos Professores</span>
+      <span id="btnText">Horários temporariamente indisponíveis</span>
     </button>
 
     <div class="filtros">
@@ -1058,8 +1078,10 @@
         type="text"
         id="buscaInput"
         placeholder="Pesquisar professor ou disciplina…"
+        disabled
+        aria-disabled="true"
       />
-      <select id="filtroDisciplina">
+      <select id="filtroDisciplina" disabled aria-disabled="true">
         <option value="">Todas as disciplinas</option>
       </select>
     </div>
@@ -1969,21 +1991,36 @@
         renderCards(filtrados);
       }
 
-      popularSelectDisciplina();
-      renderCards(horarios);
+      const acessoHorariosLiberado = false; // Defina como true para liberar o acesso aos horários
 
-      buscaInput.addEventListener("input", filtrar);
-      filtroDisciplina.addEventListener("change", filtrar);
+      if (acessoHorariosLiberado) {
+        popularSelectDisciplina();
+        renderCards(horarios);
+        buscaInput.disabled = false;
+        buscaInput.removeAttribute("aria-disabled");
+        filtroDisciplina.disabled = false;
+        filtroDisciplina.removeAttribute("aria-disabled");
 
-      btn.addEventListener("click", () => {
-        if (quadro.style.display === "block") {
-          quadro.style.display = "none";
-          btnText.textContent = "Ver Horários dos Professores";
-        } else {
-          quadro.style.display = "block";
-          btnText.textContent = "Ocultar Horários dos Professores";
-        }
-      });
+        buscaInput.addEventListener("input", filtrar);
+        filtroDisciplina.addEventListener("change", filtrar);
+
+        btn.disabled = false;
+        btn.removeAttribute("aria-disabled");
+        btnText.textContent = "Ver Horários dos Professores";
+        btn.addEventListener("click", () => {
+          if (quadro.style.display === "block") {
+            quadro.style.display = "none";
+            btnText.textContent = "Ver Horários dos Professores";
+          } else {
+            quadro.style.display = "block";
+            btnText.textContent = "Ocultar Horários dos Professores";
+          }
+        });
+      } else {
+        containerCards.innerHTML = "";
+        filtroDisciplina.innerHTML =
+          `<option value="">Todas as disciplinas</option>`;
+      }
 
       // hamburger + mobile
       const hamburger = document.getElementById("hamburger");
