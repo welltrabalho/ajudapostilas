@@ -421,26 +421,6 @@
         animation: neonPulse 2s infinite alternate;
       }
 
-      .social-icons {
-        margin: 12px 0 5px;
-      }
-
-      .social-icons a {
-        font-size: 22px;
-        color: #00eaff;
-        margin: 0 10px;
-        transition:
-          transform 0.25s,
-          text-shadow 0.25s;
-      }
-
-      .social-icons a:hover {
-        transform: scale(1.2);
-        text-shadow:
-          0 0 10px #00eaff,
-          0 0 18px #00eaff;
-      }
-
       /* COPYRIGHT */
       .footer .copyright {
         margin-top: 10px;
@@ -801,8 +781,6 @@
     </style>
   </head>
   <body>
-    <!-- Modal de aviso sobre horário temporário (ex.: provas) -->
-    <!-- Modal de aviso sobre horário temporário (ex.: provas) -->
     <div
       id="modal-aviso-overlay"
       role="dialog"
@@ -836,7 +814,7 @@
                 >⏳ Inscrições em andamento até o final de novembro</strong
               > -->
               <strong style="color: #007bff"
-                >⏳ Inscrições para novas matrículas apartir de fevereiro</strong
+                >⏳ Inscrições para novas matrículas a partir de fevereiro</strong
               >
             </li>
             <!--
@@ -863,7 +841,7 @@
           </p> -->
 
           <p style="margin: 10px 0; opacity: 0.85; font-size: 0.94rem">
-            <b>SEJAM TODO BEM VINDOS AO CEJA!</b>
+            <b>SEJAM TODOS BEM-VINDOS AO CEJA!</b>
           </p>
         </div>
 
@@ -880,6 +858,7 @@
       <a
         href="https://cejarj.cecierj.edu.br/ava"
         target="_blank"
+        rel="noopener noreferrer"
         style="
           display: flex;
           align-items: center;
@@ -911,12 +890,25 @@
     <header>
       <nav>
         <div class="logo">
-          <a href="https://wa.me/552126226012" target="_blank">
+          <a
+            href="https://wa.me/552126229012"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contato pelo WhatsApp"
+          >
             <img src="imgsite/minha.jpg" class="logo-img" alt="logo" />
           </a>
         </div>
 
-        <div class="hamburger" id="hamburger">
+        <div
+          class="hamburger"
+          id="hamburger"
+          role="button"
+          tabindex="0"
+          aria-label="Abrir menu"
+          aria-controls="nav-list"
+          aria-expanded="false"
+        >
           <div class="line1"></div>
           <div class="line2"></div>
           <div class="line3"></div>
@@ -924,7 +916,7 @@
 
         <ul class="nav-list" id="nav-list">
           <li>
-            <a href="#"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Início</a>
           </li>
 
           <li class="submenu">
@@ -1051,7 +1043,11 @@
           </li>
 
           <li>
-            <a href="#"><i class="fa-solid fa-envelope"></i> Contato</a>
+            <a
+              href="https://wa.me/552126229012"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><i class="fa-solid fa-envelope"></i> Contato</a>
           </li>
         </ul>
       </nav>
@@ -1306,6 +1302,8 @@
       <a
         href="https://api.whatsapp.com/send?phone=552126229012&text=Olá,%20preciso%20de%20ajuda"
         target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Falar no WhatsApp"
       >
         <img src="imgsite/whatsapp.png" alt="whatsapp" />
       </a>
@@ -1314,9 +1312,23 @@
     <script>
       // ======= NETFLIX CARDS INTERACTION =======
       document.querySelectorAll(".netflix-card").forEach((card) => {
-        card.addEventListener("click", function () {
-          const link = this.getAttribute("data-link");
-          if (link) window.location.href = link;
+        const link = card.getAttribute("data-link");
+        if (!link) return;
+
+        card.setAttribute("role", "link");
+        card.setAttribute("tabindex", "0");
+
+        const title = card.querySelector(".netflix-card-title");
+        if (title) card.setAttribute("aria-label", title.textContent.trim());
+
+        card.addEventListener("click", () => {
+          window.location.href = link;
+        });
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            window.location.href = link;
+          }
         });
       });
 
@@ -2024,9 +2036,20 @@
       // hamburger + mobile
       const hamburger = document.getElementById("hamburger");
       const navList = document.getElementById("nav-list");
-      hamburger.addEventListener("click", () => {
+      function alternarMenu() {
         hamburger.classList.toggle("active");
         navList.classList.toggle("show");
+        const aberto = navList.classList.contains("show");
+        hamburger.setAttribute("aria-expanded", aberto ? "true" : "false");
+        hamburger.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+      }
+
+      hamburger.addEventListener("click", alternarMenu);
+      hamburger.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          alternarMenu();
+        }
       });
 
       // submenus mobile com slide e setinha
@@ -2098,12 +2121,6 @@
         Desenvolvido com <i class="fas fa-computer"></i> por <span>W&ll</span>
       </p>
 
-      <div class="social-icons">
-        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      </div>
-
       <button
         id="show-aviso-btn"
         class="btn-aviso-footer"
@@ -2112,12 +2129,19 @@
         <i class="fa-solid fa-bell"></i>Mostrar aviso
       </button>
 
-      <p class="copyright">© 2025 — Todos os direitos reservados.</p>
+      <p class="copyright">
+        © <span id="copyright-year">2025</span> — Todos os direitos reservados.
+      </p>
     </footer>
 
     <script>
       // botão do rodapé — limpa preferência e reexibe o modal
       document.addEventListener("DOMContentLoaded", function () {
+        const copyrightYear = document.getElementById("copyright-year");
+        if (copyrightYear) {
+          copyrightYear.textContent = new Date().getFullYear();
+        }
+
         const showBtn = document.getElementById("show-aviso-btn");
         if (!showBtn) return;
         showBtn.addEventListener("click", function () {
